@@ -1,0 +1,12 @@
+<div class="summary-card h-100 p-3 p-md-4">
+  <div class="card-header border-bottom pb-2 mb-3">
+    <div class="d-flex align-items-center gap-2">
+      <fa-icon [icon]="getIcon()" class="card-icon"></fa-icon>
+      <h5 class="mb-0 text-truncate">{{ name }}</h5>
+    </div>
+  </div>
+  <div class="card-body p-0">
+    <h4 class="mb-2 text-truncate">{{ formatValue(value) }}{{ unit }}</h4>
+    <p class="mb-0 text-truncate">{{ trend }}</p>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.sidebar-item {
+  padding: 10px 15px;
+  color: #666;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.sidebar-item:hover,
+.sidebar-item.active {
+  font-weight: bold;
+  color: black;
+}

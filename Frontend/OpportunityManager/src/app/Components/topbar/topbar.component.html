@@ -1,0 +1,13 @@
+
+<header class="d-flex align-items-center justify-content-between px-3 bg-light border-bottom ">
+  <div class="dropdown">
+    <img [src]="profileImg" alt="Profile Picture" 
+         class="rounded-circle dropdown-toggle" 
+         id="profileDropdown" data-bs-toggle="dropdown" 
+         width="40" height="40" style="object-fit: cover; cursor: pointer;">
+
+    <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="profileDropdown">
+      <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
+    </ul>
+  </div>
+</header>

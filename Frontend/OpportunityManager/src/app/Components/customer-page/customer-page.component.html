@@ -1,0 +1,138 @@
+<div class="customer-page">
+
+  <div class="container ">
+    
+    <!-- Header Section -->
+    <div class="row g-4 header-wrapper">
+      <div class="col-md-6">
+        <h4 class="mb-0">Customers</h4>
+        <p class="text-muted">Manage your customer information</p>
+      </div>
+    <div class="col-md-6">
+      <div class="d-flex gap-3 justify-content-md-end">
+        <!-- Add Customer Button -->
+        <app-add-new-customer-component 
+        (reloadCustomers)="fetchCustomers('all',undefined)">
+      </app-add-new-customer-component>
+      
+      <!-- Search Component -->
+      <app-search 
+      (searchEvent)="fetchCustomers(undefined,$event)">
+    </app-search>
+  </div>
+</div>
+</div>
+
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+  <!-- Pagination -->
+  <div class="mb-4">
+    <app-pagination
+    [totalRecords]="totalRecords"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    (pageChanged)="onPageChange($event)"
+    (pageSizeChanged)="onPageSizeChange($event)">
+  </app-pagination>
+</div>
+
+<!-- Cards Grid with additional buttons -->
+<app-table 
+[columns]="customerColumns" 
+      [data]="filteredCustomers" 
+      [showButtons]="true"
+      (edit)="onEdit($event)"
+      (showDeals)="onShowDeals($event)"
+      (showContacts)="onShowContacts($event)">
+    </app-table>
+  </div>
+  
+</div>
+
+
+<!-- Edit Modal -->
+<app-edit-customer-modal
+*ngIf="showModal" 
+[userData]="customerTobeEdited" 
+(closeModal)="showModal = false"
+(saveChanges)="updateUser($event)">
+</app-edit-customer-modal>
+
+
+<!-- Deals Modal -->
+<div class="modal-overlay" *ngIf="showDealsModal">
+  <div class="custom-modal deals-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        Deals from {{ this.selectedCustomerName }}
+      </h5>
+      <button class="close-button" (click)="closeDealsModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="deals-list" *ngIf="selectedCustomer?.length; else noDeals">
+        <div class="deal-card" *ngFor="let deal of selectedCustomer">
+          <div class="deal-header">
+            <h6>{{ deal.name }}</h6>
+            <span class="badge" [ngClass]="'badge-' + deal.status.toLowerCase()">
+              {{ deal.status }}
+            </span>
+          </div>
+          <div class="deal-details">
+            <p><strong>Stage:</strong> {{ deal.stage }}</p>
+            <p><strong>Age:</strong> {{ deal.age }}</p>
+          </div>
+        </div>
+      </div>
+      <ng-template #noDeals>
+        <div class="no-data">
+          <i class="bi bi-inbox"></i>
+          <p>No deals found for this customer</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+
+<!-- Contacts Modal -->
+<div class="modal-overlay" *ngIf="showContactsModal">
+  <div class="custom-modal contacts-modal">
+    <div class="modal-header">
+      <h5 class="modal-title">
+        Contacts of {{selectedCustomerName }}
+      </h5>
+      <button class="close-button" (click)="closeContactsModal()">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="contacts-list" *ngIf="selectedCustomer?.length; else noContacts">
+        <div class="contact-card" *ngFor="let contact of selectedCustomer">
+          <div class="contact-info">
+            <h6>{{ contact.name }}</h6>
+            <p class="designation">{{ contact.designation }}</p>
+          </div>
+          <div class="contact-details">
+            <p>
+              <i class="bi bi-envelope"></i>
+              <a [href]="'mailto:' + contact.email">{{ contact.email }}</a>
+            </p>
+            <p>
+              <i class="bi bi-telephone"></i>
+              <a [href]="'tel:' + contact.mobile">{{ contact.mobile }}</a>
+            </p>
+          </div>
+        </div>
+      </div>
+      <ng-template #noContacts>
+        <div class="no-data">
+          <i class="bi bi-people"></i>
+          <p>No contacts found for this customer</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+</div>

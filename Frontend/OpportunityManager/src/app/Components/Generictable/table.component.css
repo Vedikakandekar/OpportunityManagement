@@ -1,0 +1,282 @@
+.generic-table th {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.generic-table .profile-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn-sm i {
+  font-size: 0.9rem;
+}
+
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.data-fields {
+  font-size: 0.95rem;
+}
+
+.profile-img {
+  border: 3px solid #fff;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .col-md-6 {
+    margin-bottom: 1rem;
+  }
+}
+
+.action-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.action-link {
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  transition: all 0.2s ease;
+  border: none;
+  background: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.action-link i {
+  font-size: 0.875rem;
+}
+
+/* Edit button styling */
+.edit-link {
+  color: #2c3e50;
+}
+
+.edit-link:hover {
+  color: #e74c3c;
+}
+
+/* Deals button styling */
+.deals-link {
+  color: #2c3e50;
+}
+
+.deals-link:hover {
+  color: #3498db;
+}
+
+/* Contacts button styling */
+.contacts-link {
+  color: #2c3e50;
+}
+
+.contacts-link:hover {
+  color: #27ae60;
+}
+
+/* Common hover effects */
+.action-link:hover {
+  cursor: pointer;
+  transform: translateY(-1px);
+}
+
+.action-link:active {
+  transform: translateY(0);
+}
+
+/* Remove focus outline */
+.action-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Card Container */
+.row {
+  margin: 0;
+}
+
+/* Card Styling */
+.card {
+  border: none;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Data Fields Styling */
+.data-fields {
+  font-size: 0.95rem;
+}
+
+.data-fields .row {
+  margin-bottom: 0.75rem;
+}
+
+.data-fields .col-5 {
+  color: #6c757d;
+  font-weight: 500;
+  font-size: 0.875rem;
+}
+
+.data-fields .col-7 {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* Action Links Container */
+.action-links {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+  flex-wrap: wrap;
+}
+
+/* Action Link Styling */
+.action-link {
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  border: 1px solid #dee2e6;
+  background: #ffffff;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #2c3e50;
+  white-space: nowrap;
+}
+
+.action-link i {
+  font-size: 0.9rem;
+}
+
+/* Edit button styling */
+.edit-link {
+  color: #2c3e50;
+  border-color: #dee2e6;
+}
+
+.edit-link:hover {
+  color: #2c3e50;
+  background-color: #f8f9fa;
+  border-color: #2c3e50;
+}
+
+/* Deals button styling */
+.deals-link {
+  color: #2c3e50;
+  border-color: #dee2e6;
+}
+
+.deals-link:hover {
+  color: #2c3e50;
+  background-color: #f8f9fa;
+  border-color: #2c3e50;
+}
+
+/* Contacts button styling */
+.contacts-link {
+  color: #2c3e50;
+  border-color: #dee2e6;
+}
+
+.contacts-link:hover {
+  color: #2c3e50;
+  background-color: #f8f9fa;
+  border-color: #2c3e50;
+}
+
+/* Common hover effects */
+.action-link:hover {
+  cursor: pointer;
+  transform: translateY(-1px);
+}
+
+.action-link:active {
+  transform: translateY(0);
+}
+
+/* Remove focus outline */
+.action-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+
+  .action-links {
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .action-link {
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8125rem;
+  }
+
+  .data-fields .col-5,
+  .data-fields .col-7 {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Field Icons */
+.bi {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Data Field Layout */
+.data-fields .row {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+}
+
+.data-fields .col-5 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.data-fields .col-7 {
+  display: flex;
+  align-items: center;
+  word-break: break-word;
+}

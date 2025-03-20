@@ -1,0 +1,54 @@
+<!-- Modal -->
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Contact Details</h5>
+        <button type="button" class="btn-close" (click)="onClose()" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <!-- Name Input -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input id="name" formControlName="name" type="text" class="form-control" />
+            <div class="text-danger small mt-1" *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].touched || editForm.controls['name'].dirty)">
+              Name is required.
+            </div>
+          </div>
+
+          <!-- Email Input (Read-Only) -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input id="email" formControlName="email" type="email" class="form-control" readonly />
+          </div>
+
+          <!-- Phone Input -->
+          <div class="mb-3">
+            <label for="mobile" class="form-label">Phone:</label>
+            <input id="mobile" formControlName="mobile" type="text" class="form-control" />
+            <div class="text-danger small mt-1" *ngIf="editForm.controls['mobile'].invalid && (editForm.controls['mobile'].touched || editForm.controls['mobile'].dirty)">
+              Enter a valid 10-digit phone number.
+            </div>
+          </div>
+
+          <!-- Designation Input -->
+          <div class="mb-3">
+            <label for="designation" class="form-label">Designation:</label>
+            <input id="designation" formControlName="designation" type="text" class="form-control" />
+            <div class="text-danger small mt-1" *ngIf="editForm.controls['designation'].invalid && (editForm.controls['designation'].touched || editForm.controls['designation'].dirty)">
+              Designation is required.
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

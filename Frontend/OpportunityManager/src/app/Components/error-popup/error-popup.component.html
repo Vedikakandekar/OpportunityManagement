@@ -1,0 +1,6 @@
+<div class="error-popup" *ngIf="errorPopupService.isVisible"
+  [ngClass]="{'error': errorPopupService.messageType === 'error', 
+  'warning': errorPopupService.messageType === 'warning'}">
+<p>{{ errorPopupService.errorMessage }}</p>
+<button (click)="errorPopupService.hideErrorPopup()">OK</button>
+</div>

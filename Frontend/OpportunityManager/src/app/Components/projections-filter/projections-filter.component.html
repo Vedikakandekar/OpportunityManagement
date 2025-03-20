@@ -1,0 +1,88 @@
+<!-- Filter & Search Button -->
+<div class="d-flex justify-content-end">
+    <button 
+      class="btn btn-outline-dark d-flex align-items-center gap-2 px-1 py-1 shadow-sm fw-semibold"
+      data-bs-toggle="modal" data-bs-target="#filterModal">
+      <i class="bi bi-funnel fs-6 fw-semibold"></i>
+    </button>
+  </div>
+  
+  <!-- Bootstrap Modal -->
+  <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-end">
+      <div class="modal-content">
+        
+        <div class="modal-header d-flex gap-4">
+          <h5 class="modal-title fw-bold" id="filterModalLabel">Filters</h5>
+          
+          <span class="text-danger fw-semibold" 
+                style="cursor: pointer;" 
+                data-bs-dismiss="modal"
+                (click)="clearFilters()">
+            <i class="bi bi-x-circle"></i> Clear Filters
+          </span>
+  
+            
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="position-relative  rounded" [formGroup]="filterForm">
+              
+              <div class="mb-1">
+                <input 
+                  type="text" 
+                  formControlName="searchTerm" 
+                  (keyup.enter)="applyFilters()" 
+                  class="form-control" 
+                  placeholder="Search..."
+                />
+              </div>
+  
+              <!-- Sort By -->
+              <div class="mb-1">
+                <label class="form-label">Sort By:</label>
+                <select formControlName="sortBy" class="form-select">
+                  <option value="name">Name</option>
+                  <option value="dateAdded">Date Added</option>
+                </select>
+              </div>
+  
+              <!-- Stage -->
+              <div class="mb-1">
+                <label class="form-label">Status:</label>
+                <select formControlName="status" class="form-select">
+                  <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+                </select>
+              </div>
+  
+              <!-- Type -->
+              <div class="mb-1">
+                <label class="form-label">Type:</label>
+                <select formControlName="billingType" class="form-select">
+                  <option *ngFor="let type of billingTypes" [value]="type">{{ type }}</option>
+                </select>
+              </div>
+  
+              <!-- Status -->
+              <div class="mb-1">
+                <label class="form-label">Currency:</label>
+                <select formControlName="currency" class="form-select">
+                  <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+                </select>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <div class="modal-footer d-flex justify-content-between">
+          <button class="btn btn-primary" (click)="applyFilters()" data-bs-dismiss="modal">Apply & Search</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

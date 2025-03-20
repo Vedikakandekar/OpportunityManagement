@@ -1,0 +1,6 @@
+@OpportunityManagement_HostAddress = http://localhost:5103
+
+GET {{OpportunityManagement_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

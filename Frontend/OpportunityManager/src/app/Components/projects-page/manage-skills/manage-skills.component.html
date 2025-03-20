@@ -1,0 +1,69 @@
+<div class="d-flex text-end">
+    <button class="btn btn-outline-dark d-flex align-items-center gap-2 px-1 py-1 shadow-sm" (click)="openSkillCard()">
+      <i class="bi bi-list-check"></i>
+      <span class="fw-semibold">Manage Skills</span>
+    </button>
+  </div>
+  
+  <!-- Manage Skills Card -->
+<div class="skills-card" *ngIf="showSkillCard">
+    <div class="card shadow-lg p-4">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Manage Skills</h5>
+        <button class="btn-close" (click)="closeSkillCard()"></button>
+      </div>
+      <hr>
+  
+      <!-- List of Skills -->
+      <div class="skills-list-container">
+        <div *ngFor="let skill of paginatedSkills" class="skill-item">
+          <div class="d-flex justify-content-between align-items-center">
+            <span><strong>{{ skill.skillName }}</strong></span>
+            <div>
+              <button class="btn btn-sm btn-outline-primary me-1" (click)="editSkill(skill)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteSkill(skill.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pagination Component -->
+      <app-pagination
+        [totalRecords]="totalCount"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        (pageChanged)="changePage($event)"
+        (pageSizeChanged)="changePageSize($event)">
+      </app-pagination>
+  
+      <!-- Add/Update Skill Section -->
+      <button class="btn btn-outline-success mt-3 w-100" (click)="openSkillForm()">
+        <i class="bi bi-plus-lg"></i> Add New Skill
+      </button>
+  
+      <div *ngIf="showSkillForm" class="mt-3">
+        <form [formGroup]="skillForm" (ngSubmit)="saveSkill()">
+          <input type="text" class="form-control mb-2" formControlName="SkillName" placeholder="Skill Name">
+          
+          <!-- Validation Message -->
+          <div *ngIf="skillForm.get('SkillName')?.invalid && skillForm.get('SkillName')?.touched" class="text-danger">
+            Skill name is required.
+          </div>
+  
+          <div class="d-flex justify-content-between mt-2">
+            <button type="submit" class="btn btn-success w-50" [disabled]="skillForm.invalid">
+              <i class="bi bi-check-lg"></i> {{ isEditing ? 'Update' : 'Save' }} Skill
+            </button>
+            <button type="button" class="btn btn-secondary w-50 ms-2" (click)="closeSkillForm()">
+              <i class="bi bi-x-lg"></i> Close
+            </button>
+          </div>
+        </form>
+      </div>
+  
+    </div>
+  </div>

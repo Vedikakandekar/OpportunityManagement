@@ -1,0 +1,15 @@
+<div class="pagination-container">
+    <button class="btn btn-sm btn-outline-dark" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+    
+    <span *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button class="btn btn-sm btn-outline-dark" (click)="changePage(i + 1)" [class.active]="i + 1 === currentPage">{{ i + 1 }}</button>
+    </span>
+    
+    <button class="btn btn-sm btn-outline-dark" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+  
+    <label for="pageSize">Records per page:</label>
+    <select class="form-select w-auto" id="pageSize" (change)="onPageSizeChange($event)">
+      <option *ngFor="let size of [5, 10, 20, 50, 100]" [value]="size" [selected]="size === pageSize">{{ size }}</option>
+    </select>
+  </div>
+  

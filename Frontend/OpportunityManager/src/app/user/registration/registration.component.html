@@ -1,0 +1,99 @@
+<div class="user-container">
+    <div class="container">
+      <h2>Register</h2>
+
+
+      <div class="text-center mb-3">
+        <label for="profileImageInput" class="profile-image-label">
+          <img
+            [src]="profileImage"
+            alt="Profile Image"
+            class="rounded-circle border shadow"
+            width="120"
+            height="120"
+          />
+        </label>
+        <input
+          type="file"
+          id="profileImageInput"
+          (change)="onImageSelect($event)"
+          accept="image/*"
+          hidden
+        />
+      </div>
+
+      
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="input-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" formControlName="fullName" />
+          <div
+            class="error-feedback"
+            *ngIf="isErrorDisplayable('fullName')">
+          <div *ngIf="form.controls.fullName.hasError('required')">
+            full Name is required !
+          </div>
+          </div>
+        </div>
+    
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" formControlName="email" />
+          <div
+            class="error-feedback"
+            *ngIf="isErrorDisplayable('email') ">
+       
+          <div *ngIf="form.controls.email.hasError('required')">
+            Email is required !
+          </div>
+          <div *ngIf="form.controls.email.hasError('email') || form.controls.email.hasError('pattern')">
+            Email is invalid !
+          </div>
+    </div>
+        </div>
+    
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+          />
+          <div
+            class="error-feedback"
+            *ngIf="isErrorDisplayable('password')">
+          <div *ngIf="form.controls.password.hasError('required')">
+            Password is required !
+          </div>
+          <div *ngIf="form.controls.password.hasError('minlength')">
+            Password should be 6 character long !
+          </div>
+          </div>
+        </div>
+    
+        <div class="input-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            formControlName="confirmPassword"
+          />
+          <div
+          class="error-feedback"
+          *ngIf="isErrorDisplayable('confirmPassword')">
+        <div *ngIf="form.controls.confirmPassword.hasError('required')">
+          Confirm Password is required !
+        </div>
+        <div *ngIf="form.controls.confirmPassword.hasError('PasswordMisMatch')">
+            Passwords do not match!
+          </div>
+        </div>
+      </div>
+    
+        <button type="submit">Register</button>
+      </form>
+      <div class="login-link">
+        Already have account ? <a routerLink="/Login">Log in</a>
+     </div>
+    </div>
+    </div>

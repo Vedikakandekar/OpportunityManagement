@@ -1,0 +1,100 @@
+.summary-card {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in forwards;
+  transform: translateY(20px);
+  border-top: 4px solid #3498db;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  border-top-color: #2980b9;
+}
+
+.card-header {
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.card-icon {
+  font-size: 1.25rem;
+  color: #3498db;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+}
+
+.card-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-body {
+  font-size: 1.2em;
+}
+
+.card-body h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-body p {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  color: #27ae60;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-body p.negative {
+  color: #e74c3c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-body h4 {
+    font-size: 1.25rem;
+  }
+  
+  .card-body p {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body h4 {
+    font-size: 1.125rem;
+  }
+  
+  .card-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Bootstrap breakpoints are handled by the grid system now */

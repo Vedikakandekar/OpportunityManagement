@@ -1,0 +1,101 @@
+<div class="container">
+  <!-- Header Section -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <h4 class="mb-0">Projects</h4>
+      <p class="text-muted">Manage your project information</p>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex gap-3 justify-content-md-end">
+        <!-- Manage Resources Section -->
+        <app-manage-resources></app-manage-resources>
+        
+        <!-- Manage Skills Section -->
+        <app-manage-skills></app-manage-skills>
+        
+        <!-- Filter Panel Section -->
+        <app-projections-filter 
+          (filterSearchApplied)="fetchProjects(undefined, $event)"   
+          (ReloadOpportunities)="fetchProjects('all', undefined)">
+        </app-projections-filter>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <app-pagination 
+    [totalRecords]="totalRecords" 
+    [currentPage]="currentPage" 
+    [pageSize]="pageSize" 
+    (pageChanged)="onPageChange($event)" 
+    (pageSizeChanged)="onPageSizeChange($event)">
+  </app-pagination>
+  
+  <!-- Projects Table -->
+  <div class="table-responsive mt-4">
+    <table class="table table-hover project-table">
+      <thead class="thead-dark">
+        <tr>
+          <th>Name</th>
+          <th>Customer</th>
+          <th>Contact</th>
+          <th>Billing Type</th>
+          <th>Currency</th>
+          <th>Status</th>
+          <th class="sticky-end">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of filteredProjects" [formGroup]="editForms[project.projectId]">
+          <!-- Form Fields -->
+          <td>
+            <input class="form-control form-control-sm" formControlName="projectName" />
+          </td>
+  
+          <td>
+            <input class="form-control form-control-sm" formControlName="customerName" readonly />
+          </td>
+  
+          <td>
+            <input class="form-control form-control-sm" formControlName="contactName" readonly/>
+          </td>
+  
+          <input hidden formControlName="customerId" />
+          <input hidden formControlName="projectId" />
+  
+          <td>
+            <select class="form-select form-select-sm" formControlName="billingType">
+              <option *ngFor="let type of billingTypes" [value]="type">{{ type }}</option>
+            </select>
+          </td>
+          
+          <td>
+            <select class="form-select form-select-sm" formControlName="currency">
+              <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+            </select>
+          </td>
+   
+          <td>
+            <select class="form-select form-select-sm" formControlName="status">
+              <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+            </select>
+          </td>
+          
+          <td class="sticky-end">
+            <div class="d-flex gap-1 justify-content-center">
+              <button (click)="saveProject(project.projectId)" 
+                      class="btn btn-outline-dark btn-sm" 
+                      data-bs-toggle="tooltip" 
+                      data-bs-placement="top" 
+                      title="Save">
+                <i class="bi bi-floppy-fill"></i>
+              </button>
+              <app-add-resources [projectId]="project.projectId"></app-add-resources>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+  

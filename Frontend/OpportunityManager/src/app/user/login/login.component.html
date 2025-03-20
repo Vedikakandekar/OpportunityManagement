@@ -1,0 +1,38 @@
+<div class="user-container">
+
+    <div class="login-container">
+      <h2>Login</h2>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+              <label for="username">Email</label>
+              <input type="email" id="username"  formControlName="email">
+              <div
+              class="error-feedback"
+              *ngIf="isErrorDisplayable('email') ">
+              
+              <div *ngIf="form.controls.email.hasError('required')">
+          Email is required !
+        </div>
+        <div *ngIf="form.controls.email.hasError('email') || form.controls.email.hasError('')">
+          Email is invalid !
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <label for="password">Password</label>
+              <input type="password" id="password" formControlName="password">
+              <div
+          class="error-feedback"
+          *ngIf="isErrorDisplayable('password')">
+          <div *ngIf="form.controls.password.hasError('required')">
+            Password is required !
+        </div>
+      </div>
+    </div>
+          <button type="submit">Log In</button>
+      </form>
+      <div class="register-link">
+        Not registered? <a routerLink="/Register">Create an account</a>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,45 @@
+<!-- Modal -->
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Customer Details</h5>
+        <button type="button" class="btn-close" (click)="onClose()" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <!-- Name Input -->
+          <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input id="name" formControlName="name" type="text" class="form-control" />
+            <div class="text-danger small mt-1" *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].touched || editForm.controls['name'].dirty)">
+              Name is required.
+            </div>
+          </div>
+
+          <!-- Email Input (Read-Only) -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input id="email" formControlName="email" type="email" class="form-control" readonly />
+          </div>
+
+          <!-- Phone Input -->
+          <div class="mb-3">
+            <label for="PhoneNumber" class="form-label">Phone:</label>
+            <input id="PhoneNumber" formControlName="phoneNumber" type="text" class="form-control" />
+            <div class="text-danger small mt-1" *ngIf="editForm.controls['phoneNumber'].invalid && (editForm.controls['phoneNumber'].touched || editForm.controls['phoneNumber'].dirty)">
+              Enter a valid 10-digit phone number.
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="editForm.invalid">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+
+<!-- Button to open modal -->
+<div class="d-flex text-end">
+  <button class="btn btn-outline-dark d-flex align-items-center gap-2 px-1 py-1 shadow-sm" (click)="openModal()">
+    <i class="bi bi-plus-circle fs-6"></i>
+    <span class="fw-semibold">Add New Customer</span>
+  </button>
+</div>
+
+
+
+
+<!-- Bootstrap Modal -->
+<div class="modal fade show d-block" *ngIf="isModalOpen" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">Add New Customer</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+
+        <div class="text-center mb-3">
+          <label for="profileImageInput" class="profile-image-label">
+            <img
+              [src]="profileImage"
+              alt="Profile Image"
+              class="rounded-circle border shadow"
+              width="120"
+              height="120"
+            />
+          </label>
+          <input
+            type="file"
+            id="profileImageInput"
+            (change)="onImageSelect($event)"
+            accept="image/*"
+            hidden
+          />
+        </div>
+  
+
+        <form [formGroup]="customerForm" (ngSubmit)="addOpportunity()">
+
+          <!-- Name Field -->
+          <div class="mb-3">
+            <label class="form-label">Customer Name</label>
+            <input type="text" class="form-control" formControlName="name" />
+            <div class="text-danger small" *ngIf="formControls.name.invalid && (formControls.name.touched || formControls.name.dirty)">
+              * Customer Name is required (min 3 characters)
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email" />
+            <div class="text-danger small" *ngIf="formControls.email.invalid && (formControls.email.touched || formControls.email.dirty)">
+              * Email is required and should be valid!
+            </div>
+          </div>
+
+          <!-- Phone Number Field -->
+          <div class="mb-3 p-0 m-0">
+            <app-phone-number (phoneValid)="updatePhoneNumber($event)"></app-phone-number>
+          <input type="tel" class="form-control" formControlName="mobile" hidden />
+</div>
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">Submit</button>
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="isModalOpen"></div>

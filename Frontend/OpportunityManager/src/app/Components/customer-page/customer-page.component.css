@@ -1,0 +1,269 @@
+/* Container Styles */
+
+.customer-page {
+  padding: 1.5rem;
+  margin-top: 10px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+.container {
+
+  background-color: #ffffff;
+
+  min-height: 100vh;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+/* Header and Content Wrapper Common Styles */
+.header-wrapper,
+.content-wrapper {
+  background-color: #ffffff;
+
+
+}
+
+/* Header Section */h4 {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+ .text-muted {
+  color: #6c757d !important;
+  font-size: 0.9rem;
+}
+
+/* Action Buttons Container */
+.d-flex.gap-3 {
+  gap: 1rem !important;
+}
+
+/* Button Container */
+.button-container {
+  position: relative;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+/* Custom Modal */
+.custom-modal {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
+  animation: modalFadeIn 0.3s ease;
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  color: #ffffff;
+}
+
+.modal-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #ffffff;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.close-button:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(80vh - 60px);
+}
+
+/* Deals Styling */
+.deal-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.deal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.deal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.deal-header h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.badge {
+  padding: 0.4em 0.8em;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-open {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Contacts Styling */
+.contact-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.contact-info h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin: 0;
+}
+
+.designation {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin: 0.25rem 0;
+}
+
+.contact-details {
+  margin-top: 0.75rem;
+}
+
+.contact-details p {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.contact-details a {
+  color: #4a90e2;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-details a:hover {
+  color: #357abd;
+  text-decoration: underline;
+}
+
+/* No Data State */
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.no-data i {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #dee2e6;
+}
+
+/* Animation */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header-wrapper,
+  .content-wrapper {
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .header-wrapper h4 {
+    font-size: 1.1rem;
+  }
+
+  .header-wrapper .text-muted {
+    font-size: 0.875rem;
+  }
+
+  .d-flex.gap-3 {
+    gap: 0.5rem !important;
+  }
+
+  .modal-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .deal-card, .contact-card {
+    padding: 0.75rem;
+  }
+
+  .contact-details p {
+    font-size: 0.8125rem;
+  }
+}

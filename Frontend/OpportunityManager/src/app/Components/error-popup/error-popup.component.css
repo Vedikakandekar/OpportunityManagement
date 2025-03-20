@@ -1,0 +1,51 @@
+.error-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: inline-flex;  
+  align-items: center;
+  white-space: nowrap;  
+  max-width: 90vw; 
+  animation: fadeInOut 3s ease-in-out;
+}
+
+/* 🔴 Error: Red Background */
+.error-popup.error {
+  background-color: #f44336;
+}
+
+/* 🟡 Warning: Yellow Background */
+.error-popup.warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+.error-popup p {
+  margin: 0;
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+.error-popup button {
+  background: none;
+  border: 1px solid white;
+  color: white;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 3px;
+}
+
+/* Fade In & Out Animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(10px); }
+}

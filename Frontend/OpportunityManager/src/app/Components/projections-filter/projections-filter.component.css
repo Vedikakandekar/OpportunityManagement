@@ -1,0 +1,7 @@
+.btn-outline-dark {
+    transition: all 0.3s ease-in-out;
+  }
+  .modal-body {
+    max-height:35rem; /* Adjust this height as needed */
+    overflow-y: auto;
+  }

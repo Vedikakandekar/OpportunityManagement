@@ -1,0 +1,48 @@
+<div *ngIf="visible" class="d-flex justify-content-center align-items-center position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 z-3">
+  <div class="card shadow-lg" style="width: 28rem;">
+    <!-- Close Button -->
+    <button type="button" class="btn-close" (click)="closeCard()"></button>
+
+    <div class="card-body">
+      <!-- Customer Section -->
+      <div class="d-flex align-items-center mb-4">
+        <div class="position-relative">
+          <img [src]="customerContactData.customer.profileImageUrl" 
+               alt="Customer Logo" 
+               class="rounded-circle">
+          <div class="position-absolute bottom-0 end-0 bg-success rounded-circle" 
+               style="width: 12px; height: 12px; border: 2px solid #fff;"></div>
+        </div>
+        <div class="ms-4">
+          <h5>{{ customerContactData.customer.name }}</h5>
+          <p class="text-muted mb-0">{{ customerContactData.customer.email }}</p>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- Contact Section -->
+      <div class="d-flex align-items-start">
+        <div class="position-relative">
+          <img [src]="customerContactData.contact.profileImageUrl" 
+               alt="Contact Logo" 
+               class="rounded-circle">
+          <div class="position-absolute bottom-0 end-0 bg-success rounded-circle" 
+               style="width: 12px; height: 12px; border: 2px solid #fff;"></div>
+        </div>
+        <div class="ms-4 contact-info">
+          <h5>{{ customerContactData.contact.name }}</h5>
+          <p class="text-muted mb-2">{{ customerContactData.contact.email }}</p>
+          <p class="mb-2">
+            <i class="bi bi-briefcase me-2"></i>
+            <strong>Designation:</strong> {{ customerContactData.contact.designation }}
+          </p>
+          <p class="mb-0">
+            <i class="bi bi-telephone me-2"></i>
+            <strong>Phone:</strong> {{ customerContactData.contact.mobile }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

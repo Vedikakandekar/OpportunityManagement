@@ -1,0 +1,67 @@
+<div class="d-flex text-end">
+    <button class="btn btn-outline-dark d-flex align-items-center gap-2 px-1 py-1 shadow-sm" (click)="openResourceCard()">
+        <i class="bi bi-person-fill-gear"></i>
+        <span class="fw-semibold">Manage Resources</span>
+    </button>
+</div>
+
+<!-- Manage Resources Modal -->
+<div class="resource-card" *ngIf="showResourceCard">
+    <div class="card shadow-lg p-4">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Manage Resources</h5>
+            <button class="btn-close" (click)="closeResourceCard()"></button>
+        </div>
+        <hr>
+
+        <!-- Resource List -->
+        <div class="resource-list">
+            <div *ngFor="let resource of paginatedResources" class="resource-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ resource.resourceName }}</strong>
+                        <small class="text-muted"> ({{ resource.skillName }}, ${{ resource.rate }}/hr)</small>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-primary me-1" (click)="editResource(resource)">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" (click)="deleteResource(resource.resourceId)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <app-pagination 
+            [totalRecords]="totalCount"
+            [currentPage]="currentPage"
+            [pageSize]="pageSize"
+            (pageChanged)="changePage($event)"
+            (pageSizeChanged)="onPageSizeChange($event)">
+        </app-pagination>
+
+        <!-- Add/Edit Resource Section -->
+        <button class="btn btn-outline-success mt-3 w-100" (click)="toggleAddResource()">
+            <i class="bi bi-plus-lg"></i> {{ isEditing ? 'Edit Resource' : 'Add New Resource' }}
+        </button>
+
+        <form *ngIf="showAddResource" [formGroup]="resourceForm" (ngSubmit)="saveResource()" class="mt-3">
+            <input type="text" class="form-control mb-2" formControlName="resourceName" placeholder="Resource Name">
+            <select class="form-select mb-2" formControlName="skillId">
+                <option *ngFor="let skill of skills" [value]="skill.id">{{ skill.skillName }}</option>
+            </select>
+            <input type="number" class="form-control mb-2" formControlName="rate" placeholder="Hourly Rate ($)">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-success flex-grow-1" [disabled]="resourceForm.invalid">
+                    <i class="bi bi-check-lg"></i> {{ isEditing ? 'Update Resource' : 'Save Resource' }}
+                </button>
+                <button type="button" class="btn btn-secondary flex-grow-1" (click)="toggleAddResource()">
+                    Close
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

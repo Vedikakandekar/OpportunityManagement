@@ -1,0 +1,6 @@
+<a [routerLink]="routerLink" class="sidebar-item nav-link" [ngClass]="{ 'active': isActive() }">
+  <span class="d-flex align-items-center gap-2">
+    <ng-content></ng-content>
+    <span class="item-title">{{ title }}</span>
+  </span>
+</a>

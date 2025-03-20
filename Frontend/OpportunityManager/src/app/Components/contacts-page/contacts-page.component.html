@@ -1,0 +1,58 @@
+<div class="contact-page">
+
+    
+<div class="container">
+  <!-- Header Section -->
+  <div class="row g-4 mb-4 header-wrapper">
+    <div class="col-md-6">
+      <h4 class="mb-0">Contacts</h4>
+      <p class="text-muted">Manage your contact information</p>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex gap-3 justify-content-md-end">
+        <!-- Add Contact Button -->
+        <app-add-new-contact-button 
+          [customers]="customers" 
+          (reloadContacts)="fetchContacts('all',undefined)">
+        </app-add-new-contact-button>
+
+        <!-- Search Component -->
+        <app-search 
+          (searchEvent)="fetchContacts(undefined,$event)">
+        </app-search>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+  <!-- Pagination moved here -->
+  <div class="mb-4">
+    <app-pagination
+      [totalRecords]="totalRecords"
+      [currentPage]="currentPage"
+      [pageSize]="pageSize"
+      (pageChanged)="onPageChange($event)"
+      (pageSizeChanged)="onPageSizeChange($event)">
+    </app-pagination>
+  </div>
+
+  <!-- Table/Cards -->
+  <app-table 
+    [columns]="contactsColumns" 
+    [data]="contactsData" 
+    (edit)="onEdit($event)">
+  </app-table>
+</div>
+
+
+  <!-- Edit Modal -->
+  <app-edit-contact-modal
+    *ngIf="showModal" 
+    [userData]="contactTobeEdited" 
+    (closeModal)="showModal = false"
+    (saveChanges)="updateUser($event)">
+  </app-edit-contact-modal>
+</div>

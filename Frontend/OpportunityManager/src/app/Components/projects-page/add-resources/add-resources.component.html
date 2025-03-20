@@ -1,0 +1,56 @@
+<!-- Button to Open Modal -->
+<button  
+    class="btn btn-outline-dark btn-sm" 
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top" 
+    data-bs-toggle="modal" 
+    data-bs-target="#resourceModal"
+    title="Resources">
+    <i class="bi bi-people-fill"></i>
+</button>
+
+<!-- Resource Selection Modal -->
+<div class="modal fade" id="resourceModal" tabindex="-1" aria-labelledby="resourceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Resources</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="saveChanges()" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Search Bar -->
+                <input 
+                    type="text" 
+                    class="form-control mb-3" 
+                    placeholder="Search resources..." 
+                    [(ngModel)]="searchTerm" 
+                    (input)="searchResources()">
+
+                <!-- Resource List -->
+                <div *ngFor="let resource of resources">
+                    <label class="d-flex align-items-center">
+                        <input type="checkbox" 
+                            [checked]="isResourceSelected(resource)" 
+                            (change)="toggleSelection(resource)" />
+                        {{ resource.resourceName }} - {{ resource.skillName }}
+                    </label>
+                </div>
+
+                <!-- Pagination Component -->
+                <app-pagination 
+                    [totalRecords]="totalRecords"
+                    [currentPage]="currentPage"
+                    [pageSize]="pageSize"
+                    (pageChanged)="changePage($event)"
+                    (pageSizeChanged)="updatePageSize($event)">
+                </app-pagination>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="clearChanges()" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" [disabled]="!hasChanges" (click)="saveSelectedResources()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

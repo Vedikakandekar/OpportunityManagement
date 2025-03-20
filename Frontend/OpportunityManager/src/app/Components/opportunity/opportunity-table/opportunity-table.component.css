@@ -1,0 +1,239 @@
+/* Container Styles */
+.container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Header Section Styles */
+.container h4 {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-muted {
+  color: #6c757d !important;
+  font-size: 0.9rem;
+}
+
+/* Action Buttons Container */
+.d-flex.gap-3 {
+  gap: 1rem !important;
+}
+
+/* Table Container Styles */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;
+}
+
+.opportunity-table {
+  min-width: 1500px;
+}
+
+.opportunity-table th {
+  text-align: center;
+  padding: 8px;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+.opportunity-table td {
+  padding: 8px;
+  min-width: 150px;
+  max-width: 200px;
+}
+
+/* Style for all inputs and selects in table cells */
+.opportunity-table input,
+.opportunity-table select {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 140px;
+}
+
+/* Custom class for truncated text */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
+/* Specific column widths */
+.opportunity-table .name-column { min-width: 200px; }
+.opportunity-table .customer-column { min-width: 180px; }
+.opportunity-table .contact-column { min-width: 180px; }
+.opportunity-table .actions-column { 
+  min-width: 100px;
+  white-space: nowrap;
+}
+
+/* Tooltip styles */
+.tooltip-content {
+  display: none;
+  position: absolute;
+  background: #333;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.truncate:hover + .tooltip-content {
+  display: block;
+}
+
+/* Sticky columns styling */
+.sticky-col {
+  position: sticky;
+  background-color: #fff;
+  z-index: 1;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.first-col {
+  left: 0;
+  width: 100px;
+  min-width: 100px;
+  border-right: 1px solid #dee2e6;
+}
+
+.second-col {
+  left: 110px;
+  width: 200px;
+  min-width: 200px;
+  border-right: 2px solid #dee2e6;
+}
+
+/* Add shadow effect when scrolling */
+.sticky-col::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(to right, rgba(0,0,0,0.05), rgba(0,0,0,0));
+}
+
+/* Table Header Styles */
+.thead-dark th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 12px 8px;
+  border: none;
+  font-size: 0.9rem;
+}
+
+/* Table Body Styles */
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.table td {
+  padding: 12px 8px;
+  vertical-align: middle;
+  border-color: #e9ecef;
+}
+
+/* Form Control Styles */
+.form-control-sm, .form-select-sm {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.form-control-sm:focus, .form-select-sm:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.form-control-sm[readonly] {
+  background-color: #f8f9fa;
+  cursor: default;
+}
+
+/* Button Styles */
+.btn-outline-dark {
+  border: 1px solid #dee2e6;
+  color: #495057;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-dark:hover {
+  background-color: #f8f9fa;
+  border-color: #4a90e2;
+  color: #4a90e2;
+}
+
+.btn-outline-dark i {
+  font-size: 0.9rem;
+}
+
+/* Select Dropdown Styles */
+.form-select-sm {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23495057' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px;
+}
+
+/* Info Card Styles */
+app-info-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .opportunity-table {
+    font-size: 14px;
+  }
+  
+  .opportunity-table input,
+  .opportunity-table select {
+    font-size: 14px;
+  }
+  
+  .table-responsive {
+    margin-top: 1rem;
+  }
+  
+  .thead-dark th {
+    padding: 10px 6px;
+  }
+  
+  .table td {
+    padding: 10px 6px;
+  }
+
+  .d-flex.gap-3 {
+    gap: 0.5rem !important;
+  }
+}

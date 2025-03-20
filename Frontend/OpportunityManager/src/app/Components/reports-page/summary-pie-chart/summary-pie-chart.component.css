@@ -1,0 +1,76 @@
+.chart-container {
+  background: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+  border-radius: 1rem;
+  box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+  height: calc(100vh - 300px);
+  max-height: 600px;
+}
+
+.chart-container:hover {
+  box-shadow: 0 0.5rem 1.875rem rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Custom scrollbar for webkit browsers */
+.chart-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.chart-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.chart-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.chart-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .chart-container {
+    min-height: 350px;
+    height: calc(100vh - 250px);
+  }
+}
+
+@media (max-width: 992px) {
+  .chart-container {
+    min-height: 300px;
+    height: calc(100vh - 200px);
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-container {
+    min-height: 250px;
+    height: calc(100vh - 150px);
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-container {
+    min-height: 200px;
+    height: calc(100vh - 100px);
+  }
+}

@@ -1,0 +1,133 @@
+<div class="container">
+
+
+  
+  <!-- Header Section -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <h4 class="mb-0">Opportunities</h4>
+      <p class="text-muted">Manage your Opportunities</p>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex gap-3 justify-content-md-end">
+      <app-add-new-opportunity 
+        [contacts]="contacts" 
+        [customers]="customers" 
+        (ReloadOpportunities)="fetchOpportunities('all', undefined)">
+      </app-add-new-opportunity>
+    
+
+    <!-- Filter Panel Section -->
+  
+      <app-filter-panel (filterSearchApplied)="fetchOpportunities(undefined, $event)"   (ReloadOpportunities)="fetchOpportunities('all', undefined)"></app-filter-panel>
+    </div>
+  </div>
+</div>
+<!-- Pagination -->
+<app-pagination [totalRecords]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" (pageChanged)="onPageChange($event)" (pageSizeChanged)="onPageSizeChange($event)"></app-pagination>
+
+<!-- Opportunity Table -->
+<div class="table-responsive mt-4">
+  <table class="table  table-hover table-bordered opportunity-table">
+    <thead class="thead-dark">
+      <tr>
+        <th class="sticky-col first-col">Actions</th>
+        <th class="sticky-col second-col">Name</th>
+        <th>Customer</th>
+        <th>Contact</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Stage</th>
+        <th>Substage</th>
+        <th>Location</th>
+        <th>Type</th>
+        <th>Confidence</th>
+        <th>Resource Size</th>
+        <th>Valuation</th>
+        <th>Age (week)</th>
+        <th *ngIf="showClosureColumns">Closed Date</th>
+        <th *ngIf="showClosureColumns">Closure Reason</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opportunity of filteredOpportunities" [formGroup]="editForms[opportunity.opportunityId]">
+       
+        <td class="sticky-col first-col">
+          <div class="d-flex gap-1 justify-content-center">
+            <button (click)="saveOpportunity(opportunity.opportunityId)" 
+                    class="btn btn-outline-dark btn-sm" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    [disabled]="isRowEditable"
+                    title="Save">
+              <i class="bi bi-floppy-fill"></i>
+            </button>
+            <button (click)="showInfo(opportunity.opportunityId)" 
+                    class="btn btn-outline-dark btn-sm" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Info">
+              <i class="bi bi-info-circle-fill"></i>
+            </button>
+          </div>
+        </td>
+        <!-- Form Fields -->
+        <td class="sticky-col second-col">
+          <input class="form-control form-control-sm" formControlName="name" [readOnly]="isRowEditable"/>
+        </td>
+
+        <td><input class="form-control form-control-sm" formControlName="customerName" readonly /></td>
+
+        <td><input class="form-control form-control-sm" formControlName="contactName" readonly/></td>
+
+
+        
+        <input hidden formControlName="customerId" />
+        <input hidden formControlName="opportunityId" />
+        <input hidden formControlName="closureReason" />
+        <input hidden formControlName="closedDate" />
+
+        <td>
+          <select class="form-select form-select-sm pe-4" formControlName="priority" [disabled]="isRowEditable">
+            <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm pe-4" formControlName="status" [disabled]="isRowEditable">
+            <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm pe-4" formControlName="stage" [disabled]="isRowEditable" (change)="onStageChange(opportunity.opportunityId)">
+            <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm pe-4" formControlName="substage" [disabled]="isRowEditable">
+            <option *ngFor="let substage of stageSubstageMap[editForms[opportunity.opportunityId].get('stage')?.value]" [value]="substage">{{ substage }}</option>
+          </select>
+        </td>
+
+        <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="location"><option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option></select></td>
+        <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="type"><option *ngFor="let type of types" [value]="type">{{ type }}</option></select></td>
+        <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="confidence"><option *ngFor="let conf of confidence" [value]="conf">{{ conf }}</option></select></td>
+
+        <td><input class="form-control form-control-sm" [readonly]="isRowEditable" type="int" formControlName="size" /></td>
+        <td><input class="form-control form-control-sm" [readonly]="isRowEditable" formControlName="value" /></td>
+        <td><input class="form-control form-control-sm" readonly formControlName="age" /></td>
+
+        <td *ngIf="showClosureColumns"><input class="form-control form-control-sm" formControlName="closedDate" type="text" readonly /></td>
+        <td *ngIf="showClosureColumns"><input class="form-control form-control-sm" formControlName="closureReason" type="text" readonly /></td>
+
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Info Card  -->
+<app-info-card [customerContactData]="selectedCustomerContact" [visible]="showInfoCard" (close)="closeCard()"></app-info-card>

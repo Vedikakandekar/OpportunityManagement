@@ -1,0 +1,50 @@
+<div class="key-opportunities-container">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white border-bottom">
+      <h5 class="card-title mb-0 text-primary">
+        <i class="fas fa-star text-warning me-2"></i>
+        Key Opportunities
+      </h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-light">
+            <tr>
+              <th class="border-0" style="width: 25%;">Opportunity</th>
+              <th class="border-0" style="width: 20%;">Customer</th>
+              <th class="border-0" style="width: 12%;">Stage</th>
+              <th class="border-0 text-end" style="width: 20%;">Value</th>
+              <th class="border-0" style="width: 23%;">Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let opp of highPriorityOpportunities">
+              <td class="fw-medium text-dark text-truncate" [title]="opp.name">{{opp.name | slice:0:20}}{{opp.name.length > 20 ? '...' : ''}}</td>
+              <td class="text-muted text-truncate" [title]="opp.customer.name">{{opp.customer.name | slice:0:18}}{{opp.customer.name.length > 18 ? '...' : ''}}</td>
+              <td>
+                <span class="badge rounded-pill px-3 py-1" [style.background-color]="getStageColor(opp.stage)">
+                  {{opp.stage}}
+                </span>
+              </td>
+              <td class="text-end fw-bold text-success">${{opp.value | number:'1.0-0'}}</td>
+              <td>
+                <span class="badge rounded-pill px-3 py-1 confidence-badge" [style.background-color]="getConfidenceColor(opp.confidence)">
+                  {{opp.confidence}}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="highPriorityOpportunities.length === 0">
+              <td colspan="5" class="text-center py-4">
+                <div class="text-muted">
+                  <i class="fas fa-info-circle me-2"></i>
+                  No high priority opportunities found
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> 

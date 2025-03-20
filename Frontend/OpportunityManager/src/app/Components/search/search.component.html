@@ -1,0 +1,21 @@
+<div  class="d-flex text-end">
+
+  <div class="input-group align-items-center" >
+    <input 
+    type="text" 
+    [(ngModel)]="searchTerm" 
+    (keyup.enter)="onSearch()"  
+    class="form-control  px-1 py-1" 
+    placeholder="Search..."
+    aria-label="Search"
+    
+    />
+    <button *ngIf="toggleSearch" (click)="onSearch()" class="btn btn-outline-dark  px-1 py-1">
+      <i class="bi bi-search"></i> Search
+    </button>
+    <button *ngIf="!toggleSearch" (click)="clearResults()" class="btn btn-outline-dark  px-1 py-1">
+      <i class="bi bi-search"></i> Clear
+    </button>
+  </div>
+
+</div>

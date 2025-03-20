@@ -1,0 +1,99 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Sales Dashboard</h1>
+    <p class="">sales performance metrics</p>
+  </div>
+
+  <div class="container-fluid p-4">
+    <!-- Summary Cards Section -->
+    <div class="section-header mb-3">
+      <h2>Key Metrics</h2>
+    </div>
+    
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-md-3">
+        <app-summary-card
+          name="Open Opportunities"
+          [value]="keyMetrics.totalOpportunities"
+          [trend]="keyMetrics.opportunityTrend"
+          [icon]="iconMap.user">
+        </app-summary-card>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <app-summary-card
+          name="Win Rate"
+          [value]="keyMetrics.winRate.currentWinRate"
+          unit="%"
+          [trend]="keyMetrics.winRate.trend"
+          [icon]="iconMap.chartLine">
+        </app-summary-card>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <app-summary-card
+          name="Pipeline Value"
+          [value]="keyMetrics.pipelineValue"
+          unit="$"
+          [trend]="keyMetrics.pipelineTrend"
+          [icon]="iconMap.moneyBill">
+        </app-summary-card>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-3">
+        <app-summary-card
+          name="Average Deal Size"
+          [value]="keyMetrics.averageDealSize"
+          unit="$"
+          [trend]="keyMetrics.averageDealSizeTrend"
+          [icon]="iconMap.chartBar">
+        </app-summary-card>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="section-header mt-5 mb-3">
+      <h2>Sales Analytics</h2>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="charts-container d-flex flex-wrap gap-4">
+         
+          <app-summary-bar-chart
+            chartName="Current Quarter Won Deals"
+            xAxisName="Months"
+            yAxisName="Deal Value (USD)"
+            [chartData]="monthlyDealValues"
+            [chartLabels]="currentQuarterMonths"
+            [dealCounts]="monthlyDealCounts">
+          </app-summary-bar-chart>
+          
+          <app-summary-pie-chart
+            chartName="Opportunity Status Distribution"
+            [chartData]="opportunityStatusCounts"
+            [chartLabels]="['Open', 'ClosedWon', 'ClosedLost', 'Dropped', 'OnHold']">
+          </app-summary-pie-chart>
+
+          <div class="row mb-4">
+
+            <div class="col-md-5">
+              <app-summary-polar-area-chart
+                [chartName]="'Resource Requirements'"
+                [skills]="resourceRequirements">
+              </app-summary-polar-area-chart>
+            </div>
+
+            <div class="col-md-7">
+              <app-key-opportunities
+                [opportunities]="keyOpportunities"
+               >
+              </app-key-opportunities>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
