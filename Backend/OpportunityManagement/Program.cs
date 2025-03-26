@@ -131,6 +131,8 @@ builder.Services.AddAuthorization(options =>
     .Build();
 });
 
+builder.Services.AddHttpClient<IGoogleChatService,GoogleChatService>();
+
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
 var app = builder.Build();

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OpportunityManagement.Data.Services.Contracts;
 
@@ -13,6 +14,8 @@ namespace OpportunityManagement.Controllers
         {
             _reportsService = reportsService;
         }
+
+        [Authorize]
 
         [HttpGet("getKeyMetrics")]
         public async Task<IActionResult> getKeyMetrics()
@@ -29,6 +32,8 @@ namespace OpportunityManagement.Controllers
               result
            });
         }
+
+        [Authorize]
 
         [HttpGet("getAnalyticsData")]
         public async Task<IActionResult> getAnalyticsData()

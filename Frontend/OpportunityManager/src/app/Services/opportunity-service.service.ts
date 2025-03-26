@@ -22,13 +22,22 @@ export class OpportunityServiceService {
       return this.http.get<any[]>(environment.apiBaseUrl+"/Opportunity/getAllOpportunities",{headers : reqHeader,params : params});
     }
    
-    getOpportunitiesRelatedToCustomer(customerId:number)
+    getOpportunitiesRelatedToCustomer(customerId:string)
     {
       let params = new HttpParams()
       .set('customerId',customerId);
 
       const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' +localStorage.getItem(TOKEN_KEY), 'Content-Type': 'application/json' });
       return this.http.get<any[]>(environment.apiBaseUrl+"/Opportunity/GetOpportunitiesRelatedToCustomer",{headers : reqHeader,params : params});
+    }
+
+    getResourcesAndSkills(opportunityId:string)
+    {
+      let params = new HttpParams()
+      .set('opportunityId',opportunityId);
+
+      const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' +localStorage.getItem(TOKEN_KEY), 'Content-Type': 'application/json' });
+      return this.http.get<any[]>(environment.apiBaseUrl+"/Opportunity/getResourcesAndSkills",{headers : reqHeader,params : params});
     }
   
 
@@ -56,6 +65,13 @@ export class OpportunityServiceService {
       return this.http.post(environment.apiBaseUrl+"/Opportunity/addOpportunity",formData,{headers : reqHeader});
     }
   
+
+    sendGChatMessage(formData:any)
+    {
+      const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' +localStorage.getItem(TOKEN_KEY), 'Content-Type': 'application/json' });
+      return this.http.post(environment.apiBaseUrl+"/Opportunity/sendGChatMessage",formData,{headers : reqHeader});
+    }
+
     editOpportunity(formData:any)
     {
       const reqHeader = new HttpHeaders({'Authorization': 'Bearer ' +localStorage.getItem(TOKEN_KEY), 'Content-Type': 'application/json' });

@@ -114,3 +114,14 @@
 
 <!-- Info Card  -->
 <app-info-card [customerContactData]="selectedCustomerContact" [visible]="showInfoCard" (close)="closeCard()"></app-info-card>
+
+<!-- Confirm Details Modal -->
+<app-confirm-details 
+  *ngIf="showConfirmDetails"
+  [opportunity]="selectedOpportunity"
+  [customer]="selectedCustomer"
+  [showConfirmDetails]="showConfirmDetails"
+  [resourceSkillsAssociatedWithOpportunity]="resourceSkillsAssociatedWithOpportunity"
+  (closeModal)="handleConfirmDetailsClose()"
+  (submitDetails)="handleConfirmDetailsSubmit($event)">
+</app-confirm-details>

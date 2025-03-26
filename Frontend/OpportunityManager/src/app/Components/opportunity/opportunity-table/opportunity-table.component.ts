@@ -41,7 +41,7 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
   customers:any[];
   faArrowUp = faArrowUp;
   faArrowDown = faArrowDown;
-
+  resourceSkillsAssociatedWithOpportunity:any[]=[];
   sortColumn: string | null = null; // Column to sort by
   sortDirection: 'asc' | 'desc' | null = null; // Current sort direction
 
@@ -57,6 +57,10 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
   stages = Object.values(OpportunityStage);
   locations = Object.values(OpportunityLocation);
   confidence = Object.values(OpportunityConfidence);
+
+  showConfirmDetails: boolean = false;
+  selectedOpportunity: any = null;
+  selectedCustomer: any = null;
 
   constructor(
     private opportunityService: OpportunityServiceService,
@@ -134,6 +138,19 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
 
   toggleClearFilter() {
     this.clearFilter = !this.clearFilter;
+  }
+
+  fetchResourcesAndSkills(opportunityId:string)
+  {
+    this.opportunityService.getResourcesAndSkills(opportunityId).subscribe({
+      next:(res:any)=>
+      {
+        this.resourceSkillsAssociatedWithOpportunity = res.res;
+        console.log("resources and skills: ",res.res);
+        this.showConfirmDetails = true;
+      },
+      error:(err)=>console.log(err)
+    });
   }
 
   initEditForms() {
@@ -272,6 +289,7 @@ console.log("is readable: ",this.isRowEditable);
   
 
   onStageChange(opportunityId: string) {
+  
     const stage = this.editForms[opportunityId].get('stage')?.value;
     const substageControl = this.editForms[opportunityId].get('substage');
 
@@ -280,9 +298,37 @@ console.log("is readable: ",this.isRowEditable);
     } else {
       substageControl?.setValue(''); // Clear substage if no options
     }
+
+    // Show confirm details modal when stage changes to Proposal
+    if (stage === OpportunityStage.Proposal) {
+      this.fetchResourcesAndSkills(opportunityId);
+      this.selectedOpportunity = this.opportunities.find(o => o.opportunityId === opportunityId);
+      this.selectedCustomer = this.selectedOpportunity?.customer;
+    }
   }
 
-  
+  handleConfirmDetailsClose() {
+    this.showConfirmDetails = false;
+    this.selectedOpportunity = null;
+    this.selectedCustomer = null;
+  }
+
+  handleConfirmDetailsSubmit(details: any) {
+    console.log('Confirm details submitted:', details);
+    // Handle the submitted details here
+
+    this.opportunityService.sendGChatMessage(details).subscribe({
+      next:(res:any)=>
+      {
+        console.log("gchat message sent: ",res);
+      },
+      error:(err)=>console.log(err)
+      
+    });
+    this.showConfirmDetails = false;
+    this.selectedOpportunity = null;
+    this.selectedCustomer = null;
+  }
 
   saveOpportunity(opportunityId: string) {
 

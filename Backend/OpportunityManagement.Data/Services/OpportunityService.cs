@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using OpportunityManagement.Data.Repository;
 using OpportunityManagement.Data.Repository.Contracts;
 using OpportunityManagement.Data.Services.Contracts;
@@ -36,14 +37,15 @@ namespace OpportunityManagement.Data.Services
 
         public readonly IOpportunitySkillsRepository opportunitySkillsRepository;
 
+        public readonly IGoogleChatService googleChatService;
 
 
 
 
         public OpportunityService(IOpportunityRepository repo,
             ICustomerRepository customerRepo,
-            IContactsRepository contactsRepo, 
-            ISubstageRepository substage, 
+            IContactsRepository contactsRepo,
+            ISubstageRepository substage,
             IStageRepository stageRepository,
             IStatusRepository statusRepository,
             IOpportunityConfidenceRepository opportunityConfidence,
@@ -52,6 +54,7 @@ namespace OpportunityManagement.Data.Services
             IOpportunityTypeRepository opportunityTypeRepository,
             ISkillsRepository _skillsRepository,
             IOpportunitySkillsRepository _opportunitySkillsRepository,
+            IGoogleChatService _googleChatService,
             IProjectService projectService)
         {
             _opportunityRepository = repo;
@@ -67,10 +70,11 @@ namespace OpportunityManagement.Data.Services
             _projectService = projectService;
             skillsRepository = _skillsRepository;
             opportunitySkillsRepository = _opportunitySkillsRepository;
+            googleChatService = _googleChatService; 
         }
 
 
-        public PaginatedResult<OpportunityFormDTO> GetAll(string currentLoggedInUser, int page, int pageSize,string baseUrl)
+        public PaginatedResult<OpportunityFormDTO> GetAll(string currentLoggedInUser, int page, int pageSize, string baseUrl)
         {
 
             var query = _opportunityRepository
@@ -104,7 +108,7 @@ namespace OpportunityManagement.Data.Services
             int totalCount = query.Count();
             var items = query.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
-            foreach(var item in items)
+            foreach (var item in items)
             {
                 var customerProfileImage = item.customer.profileImageUrl ?? string.Empty;
                 var contactProfileImage = item.contact.profileImageUrl ?? string.Empty;
@@ -167,7 +171,7 @@ namespace OpportunityManagement.Data.Services
             {
                 throw new InvalidOperationException("Contact associated with opportunity Not Found !!");
             }
-            
+
 
             int typeId = _opportunityTypeRepository.Get(t => t.TypeName == opportunityFormDTO.type.ToString())?.Id
                ?? throw new InvalidOperationException("Invalid Opportunity Type.");
@@ -181,11 +185,11 @@ namespace OpportunityManagement.Data.Services
             int confidenceId = _opportunityConfidenceRepository.Get(c => c.ConfidenceLevel == opportunityFormDTO.confidence.ToString())?.Id
                                ?? throw new InvalidOperationException("Invalid Confidence.");
 
-            foreach(var skill in opportunityFormDTO.opportunitySkills)
+            foreach (var skill in opportunityFormDTO.opportunitySkills)
             {
 
-            skill.skillName  = skillsRepository.Get(c => c.SkillName == skill.skillName)?.Id
-                   ?? throw new InvalidOperationException("Invalid Skill Name.");
+                skill.skillName = skillsRepository.Get(c => c.SkillName == skill.skillName)?.Id
+                       ?? throw new InvalidOperationException("Invalid Skill Name.");
             }
 
             Opportunity opportunity = new Opportunity
@@ -203,7 +207,7 @@ namespace OpportunityManagement.Data.Services
                 ClosureReason = null,
                 ContactId = opportunityFormDTO.contactId,
                 SubStageId = "1",
-                Age=0
+                Age = 0
 
             };
             opportunity.ModifiedDate = opportunity.AddedDate;
@@ -215,22 +219,22 @@ namespace OpportunityManagement.Data.Services
             {
                 throw new InvalidOperationException("Opportunity didn't get saved  !!");
             }
-            foreach(var skill in opportunityFormDTO.opportunitySkills)
+            foreach (var skill in opportunityFormDTO.opportunitySkills)
             {
 
-            OpportunitySkills os = new OpportunitySkills
-            {
-                SkillId = skill.skillName,
-                OpportunityId = NewlyAddedOpportunity.Id,
-                NumberOfPeople = skill.numberOfPeople,
-                RequiredExperience = skill.yearsOfExperience,
-                Rate = skill.Rate         
-            };
+                OpportunitySkills os = new OpportunitySkills
+                {
+                    SkillId = skill.skillName,
+                    OpportunityId = NewlyAddedOpportunity.Id,
+                    NumberOfPeople = skill.numberOfPeople,
+                    RequiredExperience = skill.yearsOfExperience,
+                    Rate = skill.Rate
+                };
 
-            opportunitySkillsRepository.Add(os);
-            opportunitySkillsRepository.Save();
+                opportunitySkillsRepository.Add(os);
+                opportunitySkillsRepository.Save();
+            }
         }
-      }
 
         public void UpdateOpportunity(OpportunityFormDTO opportunityFormDTO, string currrentLogedInUser)
         {
@@ -273,7 +277,7 @@ namespace OpportunityManagement.Data.Services
             int statusId = _opportunityStatusRepository.Get(c => c.StatusName == opportunityFormDTO.status)?.Id
                    ?? throw new InvalidOperationException("Invalid Status.");
 
-            if(opportunityFormDTO.status == "Closed Won")
+            if (opportunityFormDTO.status == "Closed Won")
             {
                 Project project = new Project
                 {
@@ -282,10 +286,10 @@ namespace OpportunityManagement.Data.Services
                     CustomerId = opportunity.Contact.CustomerId,
                     AddedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
-                    OpportunityId =  opportunity.Id,
+                    OpportunityId = opportunity.Id,
                     ProjectStatusId = 1,
                 };
-                _projectService.AddProject(project,currrentLogedInUser);
+                _projectService.AddProject(project, currrentLogedInUser);
             }
 
             opportunity.SubStageId = substage.Id;
@@ -329,7 +333,7 @@ namespace OpportunityManagement.Data.Services
             int statusId = _opportunityStatusRepository.Get(c => c.StatusName == status)?.Id
                    ?? 0;
 
-            query = query.Where(o => 
+            query = query.Where(o =>
                (searchTerm == null || EF.Functions.Like(o.Name, $"%{searchTerm}%"))
                 && (status == null || o.OpportunityStatusId == statusId)
                 && (type == null || o.OpportunityTypeId == typeId)
@@ -385,7 +389,7 @@ namespace OpportunityManagement.Data.Services
                     contact = item.Contact,
                     age = (int)((DateTime.UtcNow - item.AddedDate).TotalDays)
                 }).ToList();
-            
+
             return new PaginatedResult<OpportunityFormDTO>
             {
                 Items = items,
@@ -397,7 +401,7 @@ namespace OpportunityManagement.Data.Services
 
         public List<OpportunityFormDTO> GetOpportunitiesRelatedToCustomer(string currentLoggedInUser, string customerId)
         {
-            if(_customerRepo.Get(c=>c.Email== customerId) == null)
+            if (_customerRepo.Get(c => c.Email == customerId) == null)
             {
                 throw new InvalidOperationException("Customer does not exist !!");
             }
@@ -411,5 +415,72 @@ namespace OpportunityManagement.Data.Services
                 }).ToList();
             return opportunityList;
         }
+
+        public async Task SendChatMessageAsync(GChatMessageDTO messageDTO)
+        {
+            string message = "New Lead from " + messageDTO.customerName + "\n Project Name : " + messageDTO.opportunityName + "With valuation of "+messageDTO.valuation + "\n Resource Requirenment : \n";
+            foreach(var oppSkill in messageDTO.opportunitySkills)
+            {
+                message = message + oppSkill.skillName + " Need " + oppSkill.numberOfPeople + " People with Experiance level " + oppSkill.yearsOfExperience+"\n";
+            }
+            message = message + "\n\n" + messageDTO.comments;
+
+            var result = await googleChatService.SendMessageAsync(message);
+            if (result)
+                Console.Write("\n\n\n\nMessage sent successfully!");
+            else
+                throw new Exception("Could not send response to Google chat ..");
+        }
+
+
+
+        public void UpdateResourceSkills(GChatMessageDTO messageDTO)
+        {
+            var oppId = _opportunityRepository.Get(o => o.Name == messageDTO.opportunityName);
+            if (oppId == null) {
+                throw new InvalidOperationException("Opportunity with given Name does NOT exist");
+            }
+            var oppList = opportunitySkillsRepository.GetAll(o => o.OpportunityId == oppId.Id);
+            if (oppList != null && oppList.Count()>0)
+            {
+
+                opportunitySkillsRepository.RemoveRange(oppList);
+            }
+                foreach (var resourceSkill in messageDTO.opportunitySkills) {
+
+                    string skillId = skillsRepository.Get(s => s.SkillName == resourceSkill.skillName).Id;
+                    if (skillId == null)
+                    {
+                        throw new InvalidOperationException("Added SKill does not exist");
+                    }
+                    OpportunitySkills oppSkills = new OpportunitySkills();
+                    oppSkills.OpportunityId = oppId.Id;
+                    oppSkills.NumberOfPeople = resourceSkill.numberOfPeople;
+                    oppSkills.RequiredExperience = resourceSkill.yearsOfExperience;
+                    oppSkills.Rate = resourceSkill.Rate;
+                    oppSkills.SkillId = skillId;
+                    opportunitySkillsRepository.Add(oppSkills);
+            
+
+                }
+            opportunitySkillsRepository.Save();
+        }
+
+            public List<OpportunitySkillsDTO> GetResourcesAndSkills(string opportunityId)
+            {
+                if (opportunityId == null)
+                {
+                    throw new InvalidOperationException("Invalid Opportunity is selected !! s");
+                }
+                var opportunitySkills = opportunitySkillsRepository.GetAll(o => o.OpportunityId == opportunityId, includeProperties: "Skills")
+                    .Select(o => new OpportunitySkillsDTO
+                    {
+                        skillName = o.Skills.SkillName,
+                        numberOfPeople = o.NumberOfPeople,
+                        yearsOfExperience = o.RequiredExperience,
+                        Rate = o.Rate
+                    }).ToList();
+                return opportunitySkills;
+            }
+        }
     }
-}

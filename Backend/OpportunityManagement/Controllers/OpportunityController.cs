@@ -56,6 +56,25 @@ namespace OpportunityManagement.Controllers
             });
         }
 
+
+        [HttpGet("getResourcesAndSkills")]
+        public async Task<IActionResult> getResourcesAndSkills([FromQuery] string opportunityId)
+        {
+            string currentLoggedInUser = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(currentLoggedInUser))
+            {
+                throw new UnauthorizedAccessException("User is not authorized.");
+            }
+            var result = _opportunityService.GetResourcesAndSkills(opportunityId);
+
+            return Ok(new
+            {
+                res = result
+            });
+        }
+
+
+
         [Authorize]
         [HttpGet("IsOpportunityNameUniqueForCustomer")]
         public async Task<IActionResult> IsOpportunityNameUniqueForCustomer([FromQuery] string name, [FromQuery] string customerId,[FromQuery] string? opportunityId = null)
@@ -115,6 +134,27 @@ namespace OpportunityManagement.Controllers
             _opportunityService.AddOpportunity(opportunityFormDTO, currentLoggedInUser);
             return Ok(new { Succeeded = true });
         }
+
+
+
+        [Authorize]
+        [HttpPost("sendGChatMessage")]
+        public async Task<IActionResult> sendGChatMessage([FromBody] GChatMessageDTO messageDTO)
+        {
+            string currentLoggedInUser = User.FindFirst("UserId")?.Value;
+            if (string.IsNullOrEmpty(currentLoggedInUser))
+            {
+                throw new UnauthorizedAccessException("User is not authorized.");
+            }
+            if (messageDTO == null)
+            {
+                throw new ArgumentNullException("Invalid Message data.");
+            }
+            _opportunityService.UpdateResourceSkills(messageDTO);
+            await _opportunityService.SendChatMessageAsync(messageDTO);
+            return Ok(new { Succeeded = true });
+        }
+
 
 
         [Authorize]

@@ -20,6 +20,4 @@ export class OpportunityComponent implements OnInit {
   
   ngOnInit(): void {}
 
-
-
 }

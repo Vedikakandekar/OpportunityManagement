@@ -1,4 +1,4 @@
-export interface Resources 
+export interface opportunitySkills
 {
     Id : string,
     ResourceName : string,

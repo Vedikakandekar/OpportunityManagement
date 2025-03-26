@@ -1,0 +1,134 @@
+<!-- Modal -->
+<div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="confirmDetailsModalLabel" [ngClass]="{'d-block': showConfirmDetails}" *ngIf="showConfirmDetails">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDetailsModalLabel">Confirm Details</h5>
+        <button type="button" class="btn-close" (click)="close()" aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <form [formGroup]="confirmForm">
+          <!-- Customer and Opportunity Details -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="customerName">Customer Name</label>
+                <input type="text" class="form-control" id="customerName" formControlName="customerName" readonly>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="opportunityName">Opportunity Name</label>
+                <input type="text" class="form-control" id="opportunityName" formControlName="opportunityName" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="valuation">Valuation</label>
+                <input type="text" class="form-control" id="valuation" formControlName="valuation" readonly>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="details">Details</label>
+                <input type="text" class="form-control" id="details" formControlName="details" readonly>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resources Section -->
+          <div class="resources-section mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6>Resources</h6>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="addResource()">
+                <i class="bi bi-plus-circle"></i> Add Resource
+              </button>
+            </div>
+
+            <div formArrayName="opportunitySkills">
+              <div *ngFor="let resource of resourcesArray.controls; let i=index" [formGroupName]="i" class="resource-item mb-3 p-3 border rounded">
+                <div class="d-flex justify-content-between mb-2">
+                  <h6 class="mb-0">Resource #{{i + 1}}</h6>
+                  <button type="button" class="btn btn-link text-danger" (click)="removeResource(i)">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>No. of Resources</label>
+                      <input type="number" class="form-control" formControlName="numberOfPeople">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Skill Name</label>
+         
+                      <select class="form-select" formControlName="skillName">
+                        <option value="">Select Skill</option>
+                        <option
+                          *ngFor="let skill of skills"
+                          [value]="skill.skillName"
+                        >
+                          {{ skill.skillName }}
+                        </option>
+                      </select>
+                      <div
+                        class="text-danger small"
+                        *ngIf="
+                          resource.get('skillName')?.invalid &&
+                          (resource.get('skillName')?.touched ||
+                          resource.get('skillName')?.dirty)
+                        "
+                      >
+                        * Skill selection is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Experience (years)</label>
+                      <input type="number" class="form-control" formControlName="yearsOfExperience">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Hourly Rate</label>
+                      <input type="number" class="form-control" formControlName="rate">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="form-group">
+            <label for="comments">Comments</label>
+            <textarea class="form-control" id="comments" rows="3" formControlName="comments"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button type="button" 
+                class="btn btn-primary" 
+                (click)="onSubmit()"
+                [class.custom-disabled]="!confirmForm.valid">
+          Send Message
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show"></div>

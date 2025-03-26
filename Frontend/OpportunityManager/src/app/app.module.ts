@@ -51,6 +51,7 @@ import { SummaryPolarAreaChartComponent } from './Components/reports-page/summar
 import { KeyOpportunitiesComponent } from './Components/reports-page/key-opportunities/key-opportunities.component';
 import { FunnelChartComponent } from './Components/reports-page/funnel-chart/funnel-chart.component';
 import { StackedBarChartComponent } from './Components/reports-page/stacked-bar-chart/stacked-bar-chart.component';
+import { ConfirmDetailsComponent } from './Components/opportunity/confirm-details/confirm-details.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +96,8 @@ import { StackedBarChartComponent } from './Components/reports-page/stacked-bar-
     SummaryPolarAreaChartComponent,
     KeyOpportunitiesComponent,
     FunnelChartComponent,
-    StackedBarChartComponent
+    StackedBarChartComponent,
+    ConfirmDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -21,5 +21,11 @@ namespace OpportunityManagement.Data.Services.Contracts
         public void UpdateOpportunity(OpportunityFormDTO opportunityFormDTO, string currrentLogedInUser);
 
         public PaginatedResult<OpportunityFormDTO> GetFilteredOpportunities(string? searchTerm,string? sortBy, string? show, string? stage, string? type, string? status, string? location, string? priority,string currentLoggedInUser, int page, int pageSize);
+        
+        public List<OpportunitySkillsDTO> GetResourcesAndSkills(string opportunityId);
+
+        public void UpdateResourceSkills(GChatMessageDTO messageDTO);
+
+        public Task SendChatMessageAsync(GChatMessageDTO messageDTO);
     }
 }
