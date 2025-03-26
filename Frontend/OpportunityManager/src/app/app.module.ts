@@ -49,6 +49,8 @@ import { SummaryBarChartComponent } from './Components/reports-page/summary-bar-
 import { SummaryPieChartComponent } from './Components/reports-page/summary-pie-chart/summary-pie-chart.component';
 import { SummaryPolarAreaChartComponent } from './Components/reports-page/summary-polar-area-chart/summary-polar-area-chart.component';
 import { KeyOpportunitiesComponent } from './Components/reports-page/key-opportunities/key-opportunities.component';
+import { FunnelChartComponent } from './Components/reports-page/funnel-chart/funnel-chart.component';
+import { StackedBarChartComponent } from './Components/reports-page/stacked-bar-chart/stacked-bar-chart.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { KeyOpportunitiesComponent } from './Components/reports-page/key-opportu
     SummaryBarChartComponent,
     SummaryPieChartComponent,
     SummaryPolarAreaChartComponent,
-    KeyOpportunitiesComponent
+    KeyOpportunitiesComponent,
+    FunnelChartComponent,
+    StackedBarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +106,7 @@ import { KeyOpportunitiesComponent } from './Components/reports-page/key-opportu
     HttpClientModule,
     NgxMaskDirective,
     FontAwesomeModule,
-    NgChartsModule
+    NgChartsModule,
   ],
   providers: [
     {

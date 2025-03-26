@@ -1,5 +1,8 @@
-<div class="row g-4">
-  <!-- Card for each data item -->
+<div class="generic-page">
+
+  
+  <div class="row g-4">
+    <!-- Card for each data item -->
   <div class="col-md-6 col-lg-4" *ngFor="let row of data">
     <div class="card">
       <div class="card-body">
@@ -19,35 +22,35 @@
             </ng-container>
           </div>
         </div>
-
+        
         <!-- Action Buttons -->
         <div class="text-end">
           <div class="action-links">
             <button (click)="onEdit(row)" 
-                    class="btn btn-link btn-sm action-link edit-link" 
-                    data-bs-toggle="tooltip" 
-                    title="Edit">
-              <i class="bi bi-pencil-square"></i>
-              Edit
-            </button>
+            class="btn btn-link btn-sm action-link edit-link" 
+            data-bs-toggle="tooltip" 
+            title="Edit">
+            <i class="bi bi-pencil-square"></i>
             
+          </button>
+          
             <!-- Additional buttons for customer view -->
             <ng-container *ngIf="showButtons">
               <button (click)="onShowDeals(row)" 
-                      class="btn btn-link btn-sm action-link deals-link" 
+              class="btn btn-link btn-sm action-link deals-link" 
                       data-bs-toggle="tooltip" 
                       title="Show Deals">
                 <i class="bi bi-briefcase"></i>
-                Deals
+     
               </button>
               
               <button (click)="onShowContacts(row)" 
                       class="btn btn-link btn-sm action-link contacts-link" 
                       data-bs-toggle="tooltip" 
                       title="Show Contacts">
-                <i class="bi bi-people"></i>
-                Contacts
-              </button>
+                      <i class="bi bi-people"></i>
+                      
+                    </button>
             </ng-container>
           </div>
         </div>
@@ -55,3 +58,5 @@
     </div>
   </div>
 </div>
+
+      </div>

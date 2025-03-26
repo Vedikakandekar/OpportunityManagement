@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SkillsServiceService } from 'src/app/Services/skills-service.service';
 
@@ -8,6 +8,8 @@ import { SkillsServiceService } from 'src/app/Services/skills-service.service';
   styleUrls: ['./manage-skills.component.css']
 })
 export class ManageSkillsComponent implements OnInit {
+  @ViewChild('skillNameInput') skillNameInput!: ElementRef;
+  
   showSkillCard: boolean = false;
   showSkillForm: boolean = false;
   totalCount: number = 0;
@@ -56,6 +58,11 @@ export class ManageSkillsComponent implements OnInit {
       this.skillForm.reset();
     }
     this.showSkillForm = true;
+    
+    // Set focus after form is shown
+    setTimeout(() => {
+      this.skillNameInput?.nativeElement?.focus();
+    });
   }
 
   closeSkillForm() {

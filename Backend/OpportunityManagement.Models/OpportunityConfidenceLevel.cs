@@ -17,13 +17,5 @@ namespace OpportunityManagement.Models
         public string ConfidenceLevel { get; set; } = string.Empty;
     }
 
-    public enum OpportunityConfidence
-    {
-        GuaranteedWin = 1,
-        VeryPromising = 2,
-        PotentialLead = 3,
-        LongShot = 4,
-        Unlikely = 5
-    }
 
 }

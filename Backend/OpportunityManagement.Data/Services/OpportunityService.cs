@@ -273,7 +273,7 @@ namespace OpportunityManagement.Data.Services
             int statusId = _opportunityStatusRepository.Get(c => c.StatusName == opportunityFormDTO.status)?.Id
                    ?? throw new InvalidOperationException("Invalid Status.");
 
-            if(opportunityFormDTO.status == "ClosedWon")
+            if(opportunityFormDTO.status == "Closed Won")
             {
                 Project project = new Project
                 {

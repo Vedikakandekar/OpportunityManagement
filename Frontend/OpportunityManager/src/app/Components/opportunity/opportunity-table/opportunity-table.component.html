@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container custom-container">
 
 
   
@@ -28,102 +28,85 @@
 
 <!-- Opportunity Table -->
 <div class="table-responsive mt-4">
-  <table class="table  table-hover table-bordered opportunity-table">
+  <table class="table table-hover  opportunity-table">
     <thead class="thead-dark">
       <tr>
+        <th (click)="sortTable('customer.name')" class="sortable">Customer <fa-icon *ngIf="sortColumn === 'customer.name' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'customer.name' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('contact.name')" class="sortable">Contact <fa-icon *ngIf="sortColumn === 'contact.name' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'contact.name' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('priority')" class="sortable">Priority <fa-icon *ngIf="sortColumn === 'priority' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'priority' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('status')" class="sortable">Status <fa-icon *ngIf="sortColumn === 'status' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'status' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('stage')" class="sortable">Stage <fa-icon *ngIf="sortColumn === 'stage' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'stage' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('substage')" class="sortable">Substage <fa-icon *ngIf="sortColumn === 'substage' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'substage' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('location')" class="sortable">Location <fa-icon *ngIf="sortColumn === 'location' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'location' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('type')" class="sortable">Type <fa-icon *ngIf="sortColumn === 'type' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'type' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('confidence')" class="sortable">Confidence <fa-icon *ngIf="sortColumn === 'confidence' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'confidence' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('size')" class="sortable">Resource Size <fa-icon *ngIf="sortColumn === 'size' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'size' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('value')" class="sortable">Valuation <fa-icon *ngIf="sortColumn === 'value' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'value' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('age')" class="sortable">Age (week) <fa-icon *ngIf="sortColumn === 'age' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'age' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th *ngIf="showClosureColumns" (click)="sortTable('closedDate')" class="sortable">Closed Date <fa-icon *ngIf="sortColumn === 'closedDate' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'closedDate' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th *ngIf="showClosureColumns" (click)="sortTable('closureReason')" class="sortable" >Closure Reason <fa-icon *ngIf="sortColumn === 'closureReason' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'closureReason' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
+        <th (click)="sortTable('name')" class="sticky-col second-col">Name <fa-icon *ngIf="sortColumn === 'name' && sortDirection === 'asc'" [icon]="faArrowUp"></fa-icon><fa-icon *ngIf="sortColumn === 'name' && sortDirection === 'desc'" [icon]="faArrowDown"></fa-icon></th>
         <th class="sticky-col first-col">Actions</th>
-        <th class="sticky-col second-col">Name</th>
-        <th>Customer</th>
-        <th>Contact</th>
-        <th>Priority</th>
-        <th>Status</th>
-        <th>Stage</th>
-        <th>Substage</th>
-        <th>Location</th>
-        <th>Type</th>
-        <th>Confidence</th>
-        <th>Resource Size</th>
-        <th>Valuation</th>
-        <th>Age (week)</th>
-        <th *ngIf="showClosureColumns">Closed Date</th>
-        <th *ngIf="showClosureColumns">Closure Reason</th>
-
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let opportunity of filteredOpportunities" [formGroup]="editForms[opportunity.opportunityId]">
-       
-        <td class="sticky-col first-col">
-          <div class="d-flex gap-1 justify-content-center">
-            <button (click)="saveOpportunity(opportunity.opportunityId)" 
-                    class="btn btn-outline-dark btn-sm" 
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    [disabled]="isRowEditable"
-                    title="Save">
-              <i class="bi bi-floppy-fill"></i>
-            </button>
-            <button (click)="showInfo(opportunity.opportunityId)" 
-                    class="btn btn-outline-dark btn-sm" 
-                    data-bs-toggle="tooltip" 
-                    data-bs-placement="top" 
-                    title="Info">
-              <i class="bi bi-info-circle-fill"></i>
-            </button>
-          </div>
-        </td>
-        <!-- Form Fields -->
-        <td class="sticky-col second-col">
-          <input class="form-control form-control-sm" formControlName="name" [readOnly]="isRowEditable"/>
-        </td>
-
         <td><input class="form-control form-control-sm" formControlName="customerName" readonly /></td>
-
         <td><input class="form-control form-control-sm" formControlName="contactName" readonly/></td>
-
-
-        
         <input hidden formControlName="customerId" />
         <input hidden formControlName="opportunityId" />
         <input hidden formControlName="closureReason" />
         <input hidden formControlName="closedDate" />
-
         <td>
           <select class="form-select form-select-sm pe-4" formControlName="priority" [disabled]="isRowEditable">
             <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
           </select>
         </td>
-
         <td>
           <select class="form-select form-select-sm pe-4" formControlName="status" [disabled]="isRowEditable">
             <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
           </select>
         </td>
-
         <td>
           <select class="form-select form-select-sm pe-4" formControlName="stage" [disabled]="isRowEditable" (change)="onStageChange(opportunity.opportunityId)">
             <option *ngFor="let stage of stages" [value]="stage">{{ stage }}</option>
           </select>
         </td>
-
         <td>
           <select class="form-select form-select-sm pe-4" formControlName="substage" [disabled]="isRowEditable">
             <option *ngFor="let substage of stageSubstageMap[editForms[opportunity.opportunityId].get('stage')?.value]" [value]="substage">{{ substage }}</option>
           </select>
         </td>
-
         <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="location"><option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option></select></td>
         <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="type"><option *ngFor="let type of types" [value]="type">{{ type }}</option></select></td>
         <td><select class="form-select form-select-sm pe-4" [disabled]="isRowEditable" formControlName="confidence"><option *ngFor="let conf of confidence" [value]="conf">{{ conf }}</option></select></td>
-
         <td><input class="form-control form-control-sm" [readonly]="isRowEditable" type="int" formControlName="size" /></td>
         <td><input class="form-control form-control-sm" [readonly]="isRowEditable" formControlName="value" /></td>
         <td><input class="form-control form-control-sm" readonly formControlName="age" /></td>
-
         <td *ngIf="showClosureColumns"><input class="form-control form-control-sm" formControlName="closedDate" type="text" readonly /></td>
         <td *ngIf="showClosureColumns"><input class="form-control form-control-sm" formControlName="closureReason" type="text" readonly /></td>
-
-
+        <td class="sticky-col second-col">
+          <input class="form-control form-control-sm" formControlName="name" [readOnly]="isRowEditable"/>
+        </td>
+        <td class="sticky-col first-col">
+          <div class="d-flex gap-1 justify-content-center">
+            <button (click)="saveOpportunity(opportunity.opportunityId)" 
+                    class="btn btn-link btn-sm " 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    [disabled]="isRowEditable"
+                    title="Save">
+              <i class="bi bi-floppy"></i>
+            </button>
+            <button (click)="showInfo(opportunity.opportunityId)" 
+                    class="btn btn-link btn-sm" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Info">
+              <i class="bi bi-info-circle"></i>
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

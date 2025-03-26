@@ -23,9 +23,10 @@
       <div class="col-12 col-sm-6 col-md-3">
         <app-summary-card
           name="Win Rate"
-          [value]="keyMetrics.winRate.currentWinRate"
+          [value]="keyMetrics.winRate.totalWinRate"
           unit="%"
           [trend]="keyMetrics.winRate.trend"
+          [showPercentage]="true"
           [icon]="iconMap.chartLine">
         </app-summary-card>
       </div>
@@ -69,14 +70,8 @@
             [dealCounts]="monthlyDealCounts">
           </app-summary-bar-chart>
           
-          <app-summary-pie-chart
-            chartName="Opportunity Status Distribution"
-            [chartData]="opportunityStatusCounts"
-            [chartLabels]="['Open', 'ClosedWon', 'ClosedLost', 'Dropped', 'OnHold']">
-          </app-summary-pie-chart>
-
+          <app-funnel-chart [stageData]="opportunityStageData"></app-funnel-chart>
           <div class="row mb-4">
-
             <div class="col-md-5">
               <app-summary-polar-area-chart
                 [chartName]="'Resource Requirements'"
@@ -86,14 +81,32 @@
 
             <div class="col-md-7">
               <app-key-opportunities
-                [opportunities]="keyOpportunities"
-               >
+                [opportunities]="keyOpportunities">
               </app-key-opportunities>
             </div>
           </div>
+
+          <div class="row mb-4">
+            <div class="col-12">
+              <app-stacked-bar-chart
+                [salesRepData]="salesRepPipelineData"
+                class="mb-4">
+              </app-stacked-bar-chart>
+            </div>
+          </div>
+
+          <app-summary-pie-chart
+            chartName="Opportunity Status Distribution"
+            [chartData]="opportunityStatusCounts"
+            [chartLabels]="['Open', 'ClosedWon', 'ClosedLost', 'Dropped', 'OnHold']">
+          </app-summary-pie-chart>
+
+         
+            
+            </div>
+      
           
         </div>
       </div>
     </div>
   </div>
-</div>

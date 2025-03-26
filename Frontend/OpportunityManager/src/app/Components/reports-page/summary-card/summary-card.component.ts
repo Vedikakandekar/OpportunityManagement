@@ -15,6 +15,7 @@ export class SummaryCardComponent {
   @Input() unit: string = '';
   @Input() trend: string = '';
   @Input() icon: IconDefinition | undefined;
+  @Input() showPercentage: boolean = false;
   // Icon mapping object
   private iconMap: { [key: string]: IconDefinition } = {
     'chart-line': faChartLine,

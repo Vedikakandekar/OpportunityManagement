@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { OpportunityLocation, OpportunityPriority, OpportunityStage, OpportunityStatus, OpportunityType } from 'src/app/Models/Opportunity';
 import { ErrorPopupService } from 'src/app/Services/error-popup.service';
@@ -8,7 +8,7 @@ import { ErrorPopupService } from 'src/app/Services/error-popup.service';
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.css']
 })
-export class FilterPanelComponent {
+export class FilterPanelComponent implements OnInit {
   @Output() filterApplied = new EventEmitter<any>();
   @Output() filterSearchApplied = new EventEmitter<any>();
   @Output() ReloadOpportunities = new EventEmitter<any>();
@@ -16,19 +16,20 @@ export class FilterPanelComponent {
   filterForm: FormGroup;
   showFilterPanel: boolean = false;
 
- Stages = Object.values(OpportunityStage);
- Types = Object.values(OpportunityType);
- Statuses = Object.values(OpportunityStatus);
- Locations = Object.values(OpportunityLocation);
- Priorities = Object.values(OpportunityPriority);
- hasFilters : boolean = false;
+  // Properties for ngModel binding
+  searchTerm: string = '';
+  sortBy: string = '';
 
+  Stages = Object.values(OpportunityStage);
+  Types = Object.values(OpportunityType);
+  Statuses = Object.values(OpportunityStatus);
+  Locations = Object.values(OpportunityLocation);
+  Priorities = Object.values(OpportunityPriority);
+  hasFilters: boolean = false;
 
-
-  constructor(private fb: FormBuilder , private errorPopupService: ErrorPopupService)
-      {
+  constructor(private fb: FormBuilder, private errorPopupService: ErrorPopupService) {
     this.filterForm = this.fb.group({
-      searchTerm:[''],
+      searchTerm: [''],
       sortBy: [''],
       show: [''],
       stage: [''],
@@ -39,8 +40,28 @@ export class FilterPanelComponent {
     });
   }
 
+  ngOnInit() {
+    // Subscribe to form value changes
+    this.filterForm.valueChanges.subscribe(() => {
+      this.hasFilters = this.isFilterApplied();
+    });
+  }
+
+  // Methods for ngModelChange events
+  onSearchTermChange(value: string) {
+    this.hasFilters = this.isFilterApplied();
+    console.log('Search term changed:', value);
+  }
+
+  onSortByChange(value: string) {
+    this.hasFilters = this.isFilterApplied();
+    console.log('Sort by changed:', value);
+  }
+
   clearFilters() {
     this.filterForm.reset();
+    this.searchTerm = '';
+    this.sortBy = '';
     this.ReloadOpportunities.emit(true);
   }
   
@@ -48,18 +69,18 @@ export class FilterPanelComponent {
     this.showFilterPanel = !this.showFilterPanel;
   }
 
-  applyFilters() {
+  isFilterApplied() {
     const formValues = this.filterForm.value;
-    // Check if at least one field is non-empty
-    this.hasFilters = Object.values(formValues).some(value => value !== null && value !== undefined && value !== ''); 
-    if (!this.hasFilters) {
-      this.toggleFilterPanel(); // Close filter panel
-      this.errorPopupService.showErrorPopup("All filters are empty ! ","warning");
-      return;
-    }
-    // Emit event only if some filters are applied
-    this.filterSearchApplied.emit(formValues);
-    this.toggleFilterPanel();
+    return Object.values(formValues).some(value => value !== null && value !== undefined && value !== ''); 
   }
 
+  applyFilters() {
+    const formValues = this.filterForm.value;
+    if (this.hasFilters) {
+      this.filterSearchApplied.emit(formValues);
+      this.toggleFilterPanel();
+    } else {
+      this.errorPopupService.showErrorPopup("All filters are empty!", "warning");
+    }
+  }
 }

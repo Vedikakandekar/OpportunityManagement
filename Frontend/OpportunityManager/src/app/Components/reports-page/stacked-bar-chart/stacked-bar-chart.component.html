@@ -1,0 +1,16 @@
+<div class="chart-container">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white border-0">
+      <h5 class="card-title mb-0">Sales Pipeline by Sales Rep</h5>
+    </div>
+    <div class="card-body p-0">
+      <div class="chart-wrapper">
+        <canvas baseChart
+          [data]="chartData"
+          [options]="chartOptions"
+          type="bar">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,7 @@ export class AddNewOpportunityComponent implements OnInit {
   availableSkills: any[] = [];
   skillsList: any[] = [];
   showSkillInputs: boolean = false;
+  skillButtonText: string = 'Add Skill';
   opportunityForm!: FormGroup;
 
   constructor(
@@ -82,6 +83,9 @@ export class AddNewOpportunityComponent implements OnInit {
       )
     );
   }
+
+  disableSkillButton: boolean = true;
+
   // Skill management
   skills: any[] = [];
   currentSkill: any = {
@@ -93,13 +97,18 @@ export class AddNewOpportunityComponent implements OnInit {
 
   toggleSkillInputs() {
     this.showSkillInputs = !this.showSkillInputs;
+    this.skillButtonText = this.showSkillInputs ? 'Save Skill' : 'Add Skill';
   }
 
   addSkill() {
-    if (this.opportunityForm.get('skillName')?.valid && 
-        this.opportunityForm.get('numberOfPeople')?.valid && 
-        this.opportunityForm.get('yearsOfExperience')?.valid && 
-        this.opportunityForm.get('rate')?.valid) {
+    if (this.opportunityForm.get('skillName')?.valid &&   
+        this.opportunityForm.get('skillName')?.value !== '' && 
+        this.opportunityForm.get('numberOfPeople')?.valid &&   
+        this.opportunityForm.get('numberOfPeople')?.value !== '' && 
+        this.opportunityForm.get('yearsOfExperience')?.valid &&  
+        this.opportunityForm.get('yearsOfExperience')?.value !== '' && 
+        this.opportunityForm.get('rate')?.valid &&  
+        this.opportunityForm.get('rate')?.value !== '') {
       
       const skillData = {
         skillName: this.opportunityForm.get('skillName')?.value,
@@ -113,7 +122,7 @@ export class AddNewOpportunityComponent implements OnInit {
       this.opportunityForm.get('numberOfPeople')?.reset();
       this.opportunityForm.get('yearsOfExperience')?.reset();
       this.opportunityForm.get('rate')?.reset();
-      this.toggleSkillInputs(); // Hide form after adding skill
+      this.toggleSkillInputs(); // This will also update the button text
     }
   }
 

@@ -1,37 +1,59 @@
 <!-- Add New Opportunity Button -->
 <div class="d-flex justify-content-end">
-  <button 
+  <button
     class="btn btn-outline-dark d-flex align-items-center gap-2 px-1 py-1 shadow-sm fw-semibold"
-    data-bs-toggle="modal" 
-    data-bs-target="#addOpportunityModal">
+    data-bs-toggle="modal"
+    data-bs-target="#addOpportunityModal"
+  >
     <i class="bi bi-plus-circle fs-6"></i> Add New Opportunity
   </button>
 </div>
 
 <!-- Bootstrap Modal -->
-<div class="modal fade" 
-     id="addOpportunityModal" 
-     tabindex="-1" 
-     aria-labelledby="addOpportunityModalLabel" 
-     aria-hidden="true">
+<div
+  class="modal fade"
+  id="addOpportunityModal"
+  tabindex="-1"
+  aria-labelledby="addOpportunityModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-end">
     <div class="modal-content">
       <div class="modal-header d-flex gap-4">
-        <h5 class="modal-title fw-bold" id="addOpportunityModalLabel">Add New Opportunity</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title fw-bold" id="addOpportunityModalLabel">
+          Add New Opportunity
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
 
       <div class="modal-body">
         <form [formGroup]="opportunityForm" (ngSubmit)="addOpportunity()">
-
           <!-- Customer Selection -->
           <div class="mb-3">
             <label class="form-label">Customer:</label>
-            <select class="form-select" formControlName="customerId" (change)="onCustomerSelect($event)">
+            <select
+              class="form-select"
+              formControlName="customerId"
+              (change)="onCustomerSelect($event)"
+            >
               <option value="">Select Customer</option>
-              <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.name }}</option>
+              <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.name }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['customerId'].invalid && (formControls['customerId'].touched || formControls['customerId'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['customerId'].invalid &&
+                (formControls['customerId'].touched ||
+                  formControls['customerId'].dirty)
+              "
+            >
               * Customer selection is required.
             </div>
           </div>
@@ -39,11 +61,27 @@
           <!-- Contact Selection -->
           <div class="mb-3">
             <label class="form-label">Contact:</label>
-            <select class="form-select" formControlName="contactId" (change)="onContactSelect()">
+            <select
+              class="form-select"
+              formControlName="contactId"
+              (change)="onContactSelect()"
+            >
               <option value="">Select Contact</option>
-              <option *ngFor="let contact of filteredContacts" [value]="contact.contactId">{{ contact.name }}</option>
+              <option
+                *ngFor="let contact of filteredContacts"
+                [value]="contact.contactId"
+              >
+                {{ contact.name }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['contactId'].invalid && (formControls['contactId'].touched || formControls['contactId'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['contactId'].invalid &&
+                (formControls['contactId'].touched ||
+                  formControls['contactId'].dirty)
+              "
+            >
               * Contact selection is required.
             </div>
           </div>
@@ -52,11 +90,25 @@
           <div class="mb-3">
             <label class="form-label">Opportunity Name:</label>
             <input type="text" class="form-control" formControlName="name" />
-            <div class="text-danger small" *ngIf="formControls['name'].invalid && (formControls['name'].touched || formControls['name'].dirty)">
-              <span *ngIf="formControls['name'].errors?.['required']">* Opportunity Name is required.</span>
-              <span *ngIf="formControls['name'].errors?.['minlength']">* Minimum 3 characters required.</span>
-              <span *ngIf="formControls['name'].errors?.['pattern']">* Only alphabets and spaces are allowed.</span>
-              <span *ngIf="formControls['name'].errors?.['nameTaken']">* This name is already taken.</span>
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['name'].invalid &&
+                (formControls['name'].touched || formControls['name'].dirty)
+              "
+            >
+              <span *ngIf="formControls['name'].errors?.['required']"
+                >* Opportunity Name is required.</span
+              >
+              <span *ngIf="formControls['name'].errors?.['minlength']"
+                >* Minimum 3 characters required.</span
+              >
+              <span *ngIf="formControls['name'].errors?.['pattern']"
+                >* Only alphabets and spaces are allowed.</span
+              >
+              <span *ngIf="formControls['name'].errors?.['nameTaken']"
+                >* This name is already taken.</span
+              >
             </div>
           </div>
 
@@ -64,7 +116,13 @@
           <div class="mb-3">
             <label class="form-label">Resource Size Required:</label>
             <input type="number" class="form-control" formControlName="size" />
-            <div class="text-danger small" *ngIf="formControls['size'].invalid && (formControls['size'].touched || formControls['size'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['size'].invalid &&
+                (formControls['size'].touched || formControls['size'].dirty)
+              "
+            >
               * Size is required and should be a Number
             </div>
           </div>
@@ -73,7 +131,13 @@
           <div class="mb-3">
             <label class="form-label">Project Valuation:</label>
             <input type="number" class="form-control" formControlName="value" />
-            <div class="text-danger small" *ngIf="formControls['value'].invalid && (formControls['value'].touched || formControls['value'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['value'].invalid &&
+                (formControls['value'].touched || formControls['value'].dirty)
+              "
+            >
               * Value is required and should be a Number
             </div>
           </div>
@@ -83,9 +147,21 @@
             <label class="form-label">Confidence:</label>
             <select class="form-select" formControlName="confidence">
               <option value="">Select Confidence</option>
-              <option *ngFor="let confidence of confidenceLevels" [value]="confidence">{{ confidence }}</option>
+              <option
+                *ngFor="let confidence of confidenceLevels"
+                [value]="confidence"
+              >
+                {{ confidence }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['confidence'].invalid && (formControls['confidence'].touched || formControls['confidence'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['confidence'].invalid &&
+                (formControls['confidence'].touched ||
+                  formControls['confidence'].dirty)
+              "
+            >
               * Confidence is required
             </div>
           </div>
@@ -95,9 +171,18 @@
             <label class="form-label">Priority:</label>
             <select class="form-select" formControlName="priority">
               <option value="">Select Priority</option>
-              <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+              <option *ngFor="let priority of priorities" [value]="priority">
+                {{ priority }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['priority'].invalid && (formControls['priority'].touched || formControls['priority'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['priority'].invalid &&
+                (formControls['priority'].touched ||
+                  formControls['priority'].dirty)
+              "
+            >
               * Priority selection is required.
             </div>
           </div>
@@ -107,9 +192,17 @@
             <label class="form-label">Type:</label>
             <select class="form-select" formControlName="type">
               <option value="">Select Type</option>
-              <option *ngFor="let type of types" [value]="type">{{ type }}</option>
+              <option *ngFor="let type of types" [value]="type">
+                {{ type }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['type'].invalid && (formControls['type'].touched || formControls['type'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['type'].invalid &&
+                (formControls['type'].touched || formControls['type'].dirty)
+              "
+            >
               * Type selection is required.
             </div>
           </div>
@@ -119,9 +212,18 @@
             <label class="form-label">Location:</label>
             <select class="form-select" formControlName="location">
               <option value="">Select Location</option>
-              <option *ngFor="let location of Locations" [value]="location">{{ location }}</option>
+              <option *ngFor="let location of Locations" [value]="location">
+                {{ location }}
+              </option>
             </select>
-            <div class="text-danger small" *ngIf="formControls['location'].invalid && (formControls['location'].touched || formControls['location'].dirty)">
+            <div
+              class="text-danger small"
+              *ngIf="
+                formControls['location'].invalid &&
+                (formControls['location'].touched ||
+                  formControls['location'].dirty)
+              "
+            >
               * Location selection is required.
             </div>
           </div>
@@ -131,17 +233,25 @@
 
             <!-- Skills Cards Display -->
             <div class="mb-3" *ngIf="skillsList.length > 0">
-              <div class="card mb-2" *ngFor="let skill of skillsList; let i = index">
+              <div
+                class="card mb-2"
+                *ngFor="let skill of skillsList; let i = index"
+              >
                 <div class="card-body">
-                  <div class="d-flex justify-content-between align-items-center">
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
                     <div>
-                      <h6 class="card-title mb-1">{{skill.skillName}}</h6>
+                      <h6 class="card-title mb-1">{{ skill.skillName }}</h6>
                       <p class="card-text mb-0 small">
-                        People: {{skill.numberOfPeople}} | Experience: {{skill.yearsOfExperience}} years | Rate: ${{skill.rate}}/hr
+                        People: {{ skill.numberOfPeople }} | Experience:
+                        {{ skill.yearsOfExperience }} years | Rate: ${{
+                          skill.rate
+                        }}/hr
                       </p>
                     </div>
-                    <button class="btn btn-sm btn-danger" (click)="removeSkill(i)">
-                      <i class="fas fa-times"></i>
+                    <button class="btn btn-sm" (click)="removeSkill(i)">
+                      <i class="bi bi-trash text-danger"></i>
                     </button>
                   </div>
                 </div>
@@ -155,58 +265,126 @@
                   <label class="form-label">Skill Name:</label>
                   <select class="form-select" formControlName="skillName">
                     <option value="">Select Skill</option>
-                    <option *ngFor="let skill of availableSkills" [value]="skill.skillName">{{skill.skillName}}</option>
+                    <option
+                      *ngFor="let skill of availableSkills"
+                      [value]="skill.skillName"
+                    >
+                      {{ skill.skillName }}
+                    </option>
                   </select>
-                  <div class="text-danger small" *ngIf="formControls['skillName'].invalid && (formControls['skillName'].touched || formControls['skillName'].dirty)">
+                  <div
+                    class="text-danger small"
+                    *ngIf="
+                      formControls['skillName'].invalid &&
+                      (formControls['skillName'].touched ||
+                        formControls['skillName'].dirty)
+                    "
+                  >
                     * Skill selection is required
                   </div>
                 </div>
                 <div class="mb-2">
                   <label class="form-label">Number of People:</label>
-                  <input type="number" class="form-control" formControlName="numberOfPeople">
-                  <div class="text-danger small" *ngIf="formControls['numberOfPeople'].invalid && (formControls['numberOfPeople'].touched || formControls['numberOfPeople'].dirty)">
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="numberOfPeople"
+                  />
+                  <div
+                    class="text-danger small"
+                    *ngIf="
+                      formControls['numberOfPeople'].invalid &&
+                      (formControls['numberOfPeople'].touched ||
+                        formControls['numberOfPeople'].dirty)
+                    "
+                  >
                     * Number of people is required and must be at least 1
                   </div>
                 </div>
                 <div class="mb-2">
                   <label class="form-label">Years of Experience:</label>
-                  <input type="number" class="form-control" formControlName="yearsOfExperience">
-                  <div class="text-danger small" *ngIf="formControls['yearsOfExperience'].invalid && (formControls['yearsOfExperience'].touched || formControls['yearsOfExperience'].dirty)">
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="yearsOfExperience"
+                  />
+                  <div
+                    class="text-danger small"
+                    *ngIf="
+                      formControls['yearsOfExperience'].invalid &&
+                      (formControls['yearsOfExperience'].touched ||
+                        formControls['yearsOfExperience'].dirty)
+                    "
+                  >
                     * Years of experience is required and must be at least 0
                   </div>
                 </div>
                 <div class="mb-2">
                   <label class="form-label">Hourly Rate ($):</label>
-                  <input type="number" class="form-control" formControlName="rate">
-                  <div class="text-danger small" *ngIf="formControls['rate'].invalid && (formControls['rate'].touched || formControls['rate'].dirty)">
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="rate"
+                  />
+                  <div
+                    class="text-danger small"
+                    *ngIf="
+                      formControls['rate'].invalid &&
+                      (formControls['rate'].touched ||
+                        formControls['rate'].dirty)
+                    "
+                  >
                     * Rate is required and must be at least 0
                   </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-primary" (click)="addSkill()">
-                    <i class="fas fa-plus"></i> Add Skill
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    (click)="addSkill()"
+                  >
+                    <i class="fas fa-plus"></i> {{ skillButtonText }}
                   </button>
                 </div>
               </div>
             </div>
 
             <!-- Add Skill Button -->
-            <button type="button" class="btn btn-outline-primary" (click)="toggleSkillInputs()" *ngIf="!showSkillInputs">
-              <i class="fas fa-plus"></i> Add Skill
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              (click)="toggleSkillInputs()"
+              *ngIf="!showSkillInputs"
+            >
+              <i class="fas fa-plus"></i> {{ skillButtonText }}
             </button>
           </div>
 
           <!-- Proposal Link Field -->
           <div class="mb-3">
             <label class="form-label">Proposal Link:</label>
-            <input type="url" class="form-control" formControlName="proposalLink" />
+            <input
+              type="url"
+              class="form-control"
+              formControlName="proposalLink"
+            />
           </div>
         </form>
       </div>
 
       <div class="modal-footer d-flex justify-content-between">
-        <button type="submit" class="btn btn-primary" (click)="addOpportunity()" [disabled]="opportunityForm.invalid">Submit</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="addOpportunity()"
+          [disabled]="opportunityForm.invalid"
+          [ngClass]="{ 'custom-disabled': opportunityForm.invalid }"
+        >
+          Submit
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
       </div>
     </div>
   </div>

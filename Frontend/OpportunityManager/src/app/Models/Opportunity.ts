@@ -20,9 +20,9 @@ export interface Opportunity {
 }
 
 export enum OpportunityConfidence {
-  GuaranteedWin = 'GuaranteedWin',
-  VeryPromising = 'VeryPromising',
-  PotentialLead = 'PotentialLead',
+  GuaranteedWin = 'Guaranteed Win',
+  VeryPromising = 'Very Promising',
+  PotentialLead = 'Potential Lead',
   LongShot = 'LongShot',
   Unlikely = 'Unlikely'
 }
@@ -34,42 +34,42 @@ export enum OpportunityStage {
   Proposal = 'Proposal',
   Negotiation = 'Negotiation',
   Closed = 'Closed',
-  PostSales = 'PostSales',
+  PostSales = 'Post Sales',
 }
 
 export enum OpportunitySubStage {
   // Substages for Prospecting
-  InitialContact = 'InitialContact',
-  FollowUp = 'FollowUp',
+  InitialContact = 'Initial Contact',
+  FollowUp = 'Follow Up',
 
     // Substages for Closed
     Closed = 'Closed',
 
-    PostSales = 'PostSales',
+    PostSales = 'Post Sales',
 
     // Substages for Qualification
-  NeedAnalysis = 'NeedAnalysis',
-  BudgetCheck = 'BudgetCheck',
+  NeedAnalysis = 'Need Analysis',
+  BudgetCheck = 'Budget Check',
 
   // Substages for Negotiation:
-  DeliveryTerms = 'DeliveryTerms',
-  PriceDiscussion = 'PriceDiscussion',
-  PendingApproval = 'PendingApproval',
+  DeliveryTerms = 'Delivery Terms',
+  PriceDiscussion = 'Price Discussion',
+  PendingApproval = 'Pending Approval',
   Interviews = 'Interviews',
 
   // Substages for Proposal:
-  PreSalesDiscussion = 'PreSalesDiscussion',
-  ProposalCreation = 'ProposalCreation',
-  ProposalSubmitted = 'ProposalSubmitted',
-  ProposalRevision = 'ProposalRevision',
-  OnHold = 'OnHold',
+  PreSalesDiscussion = 'PreSales Discussion',
+  ProposalCreation = 'Proposal Creation',
+  ProposalSubmitted = 'Proposal Submitted',
+  ProposalRevision = 'Proposal Revision',
+  OnHold = 'On Hold',
 
   // Substages for Requirements
-  DiscoveryWorkshop = 'DiscoveryWorkshop',
-  PRDReceived = 'PRDReceived',
-  RFPReceived = 'RFPReceived',
-  AwaitingRequirenments = 'AwaitingRequirenments',
-  StaffingNeeds = 'StaffingNeeds',
+  DiscoveryWorkshop = 'Discovery Workshop',
+  PRDReceived = 'PRD Received',
+  RFPReceived = 'RFP Received',
+  AwaitingRequirenments = 'Awaiting Requirenments',
+  StaffingNeeds = 'Staffing Needs',
 }
 
 export const StageSubStageMap: Record<OpportunityStage, OpportunitySubStage[]> =
@@ -117,7 +117,7 @@ export enum OpportunityLocation {
 
 export enum OpportunityType {
   Managed = 'Managed',
-  StaffAugmentation = 'StaffAugmentation',
+  StaffAugmentation = 'Staff Augmentation',
 }
 
 export enum OpportunityPriority {
@@ -128,8 +128,8 @@ export enum OpportunityPriority {
 
 export enum OpportunityStatus {
   Open = 'Open',
-  ClosedWon = 'ClosedWon',
-  ClosedLost = 'ClosedLost',
+  ClosedWon = 'Closed Won',
+  ClosedLost = 'Closed Lost',
   Dropped = 'Dropped',
-  OnHold = 'OnHold',
+  OnHold = 'On Hold',
 }

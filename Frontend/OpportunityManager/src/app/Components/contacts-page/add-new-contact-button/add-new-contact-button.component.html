@@ -1,19 +1,34 @@
 <!-- Button to open modal -->
-<div class="d-flex text-end">
-  <button class="btn btn-outline-dark d-flex align-items-center gap-2" (click)="openModal()">
+<div class="d-flex justify-content-end">
+  <button
+    class="btn btn-outline-dark d-flex align-items-center gap-2"
+    data-bs-toggle="modal"
+    data-bs-target="#addContactModal"
+  >
     <i class="bi bi-plus-circle"></i>
     <span>Add New Contact</span>
   </button>
 </div>
 
 <!-- Bootstrap Modal -->
-<div class="modal fade show d-block" tabindex="-1" *ngIf="isModalOpen" aria-labelledby="modalTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
+<div
+  class="modal fade"
+  id="addContactModal"
+  tabindex="-1"
+  aria-labelledby="modalTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-end">
     <div class="modal-content">
       <!-- Modal Header -->
       <div class="modal-header">
         <h5 class="modal-title" id="modalTitle">Add New Contact</h5>
-        <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          data-bs-dismiss="modal"
+        ></button>
       </div>
 
       <!-- Modal Body -->
@@ -42,14 +57,27 @@
           <!-- Customer Selection -->
           <div class="mb-3">
             <label class="form-label">Customer Name</label>
-            <select class="form-select" formControlName="customerId" (change)="onCustomerSelect($event)">
+            <select
+              class="form-select"
+              formControlName="customerId"
+              (change)="onCustomerSelect($event)"
+            >
               <option value="">Select Customer</option>
-              <option *ngFor="let customer of customers" [value]="customer.id">{{ customer.name }}</option>
+              <option *ngFor="let customer of customers" [value]="customer.id">
+                {{ customer.name }}
+              </option>
             </select>
-            <div class="text-danger" *ngIf="formControls['customerId'].invalid && (formControls['customerId'].touched || formControls['customerId'].dirty)">
+            <div
+              class="text-danger"
+              *ngIf="
+                formControls['customerId'].invalid &&
+                (formControls['customerId'].touched ||
+                  formControls['customerId'].dirty)
+              "
+            >
               * Customer selection is required
             </div>
-            <input type="hidden" formControlName="customerName">
+            <input type="hidden" formControlName="customerName" />
           </div>
 
           <!-- Other Inputs (Disabled Initially) -->
@@ -57,44 +85,88 @@
             <div class="mb-3">
               <label class="form-label">Contact Name</label>
               <input type="text" class="form-control" formControlName="name" />
-              <div class="text-danger" *ngIf="formControls['name'].invalid && (formControls['name'].touched || formControls['name'].dirty)">
+              <div
+                class="text-danger"
+                *ngIf="
+                  formControls['name'].invalid &&
+                  (formControls['name'].touched || formControls['name'].dirty)
+                "
+              >
                 * Contact Name is required (min 3 characters)
               </div>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Designation</label>
-              <input type="text" class="form-control" formControlName="designation" />
-              <div class="text-danger" *ngIf="formControls['designation'].invalid && (formControls['designation'].touched || formControls['designation'].dirty)">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="designation"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  formControls['designation'].invalid &&
+                  (formControls['designation'].touched ||
+                    formControls['designation'].dirty)
+                "
+              >
                 * Designation is required
               </div>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Email</label>
-              <input type="email" class="form-control" formControlName="email" />
-              <div class="text-danger" *ngIf="formControls['email'].invalid && (formControls['email'].touched || formControls['email'].dirty)">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+              />
+              <div
+                class="text-danger"
+                *ngIf="
+                  formControls['email'].invalid &&
+                  (formControls['email'].touched || formControls['email'].dirty)
+                "
+              >
                 * Email is required and should be valid
               </div>
             </div>
-            
+
             <!-- Phone Number Field -->
             <div class="mb-3">
-              <app-phone-number (phoneValid)="updatePhoneNumber($event)"></app-phone-number>
+              <app-phone-number
+                (phoneValid)="updatePhoneNumber($event)"
+              ></app-phone-number>
             </div>
-            <input type="tel" class="form-control" formControlName="mobile" hidden />
+            <input
+              type="tel"
+              class="form-control"
+              formControlName="mobile"
+              hidden
+            />
           </fieldset>
-
-          <!-- Modal Footer -->
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" [disabled]="customerForm.invalid">
-              Submit
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="closeModal()">
-              Cancel
-            </button>
-          </div>
         </form>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="addContact()"
+          [disabled]="customerForm.invalid"
+          [ngClass]="{ 'custom-disabled': customerForm.invalid }"
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </div>

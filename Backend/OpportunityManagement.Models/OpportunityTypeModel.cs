@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpportunityManagement.Models
 {
-    public enum OpportunityType
-    {
-        Managed = 1,
-        StaffAugmentation = 2
-    }
+
 
     public class OpportunityTypeModel
     {

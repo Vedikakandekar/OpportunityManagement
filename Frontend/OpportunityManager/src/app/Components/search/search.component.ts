@@ -9,6 +9,7 @@ export class SearchComponent {
   searchTerm: string = '';
   // when toggleSearch==fasle then show clearResults button else show search button
   toggleSearch : boolean = true; 
+
   @Output() searchEvent = new EventEmitter<string>();
 
   onSearch() {

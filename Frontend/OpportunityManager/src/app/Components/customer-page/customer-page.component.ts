@@ -24,7 +24,7 @@ export class CustomerPageComponent implements OnInit {
   customerColumns : any[] = [
     { key: 'name', label: 'Name' },
     { key: 'email', label: 'Email' },
-    { key: 'phoneNumber', label: 'Mobile' }
+    { key: 'phoneNumber', label: 'Contact' }
  
   ];
   customerData: CustomerData[]=[];

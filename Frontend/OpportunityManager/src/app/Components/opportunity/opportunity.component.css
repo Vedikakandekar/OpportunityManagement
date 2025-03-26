@@ -1,11 +1,10 @@
 .opportunity-page {
-  padding: 1.5rem;
   background-color: #f8f9fa;
-  min-height: 100vh;
-}
-
-@media (max-width: 768px) {
-  .opportunity-page {
-    padding: 1rem;
-  }
+  /* width: 100vw; */
+  padding: 0;  /* Remove any extra padding */
+  padding-top: 25px;
+  margin: 0;   /* Remove any extra margins */
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
 }

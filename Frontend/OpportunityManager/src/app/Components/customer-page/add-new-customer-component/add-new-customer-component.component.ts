@@ -32,7 +32,7 @@ export class AddNewCustomerComponentComponent {
 
   updatePhoneNumber(phone: string) {
     this.customerForm.get('phoneNumber')?.setValue(phone);
-    console.log(this.customerForm['mobile']);
+    console.log(this.customerForm['phoneNumber']);
   }
        // Handle image selection
        onImageSelect(event: any) {

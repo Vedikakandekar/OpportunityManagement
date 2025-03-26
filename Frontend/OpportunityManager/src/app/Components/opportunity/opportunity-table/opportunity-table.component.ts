@@ -3,6 +3,8 @@ import { ConstantPool } from '@angular/compiler';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { catchError, debounceTime, distinctUntilChanged, empty, map, Observable, of, switchMap } from 'rxjs';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+
 import {
   Opportunity,
   OpportunityConfidence,
@@ -37,6 +39,11 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
   showInfoCard: boolean = false;
   contacts:any[]=[];
   customers:any[];
+  faArrowUp = faArrowUp;
+  faArrowDown = faArrowDown;
+
+  sortColumn: string | null = null; // Column to sort by
+  sortDirection: 'asc' | 'desc' | null = null; // Current sort direction
 
   isRowEditable : boolean = true;
   showClosureColumns:boolean=false;
@@ -71,7 +78,33 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
     this.fetchCustomers();
   }
 
+  sortTable(column: string) {
+    if (this.sortColumn === column) {
+      // If the same column is clicked, toggle the direction
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // If a different column is clicked, set to ascending
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
 
+    this.filteredOpportunities.sort((a: any, b: any) => {
+      const aValue = this.getNestedValue(a, column);
+      const bValue = this.getNestedValue(b, column);
+  
+      if (aValue < bValue) {
+        return this.sortDirection === 'asc' ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return this.sortDirection === 'asc' ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  getNestedValue(obj: any, path: string): any {
+    return path.split('.').reduce((value, key) => value && value[key], obj) || '';
+  }
 
   fetchContacts()
   {
@@ -84,7 +117,6 @@ export class OpportunityTableComponent implements OnInit, AfterViewInit {
       },
       error:(err) => console.log(err)
     });  
-
   }
   fetchCustomers()
   {
@@ -212,12 +244,13 @@ console.log("is readable: ",this.isRowEditable);
     } else if (newStatus !== OpportunityStatus.Open) {
       // If status is anything other than Open/ClosedWon, ask for a reason
       this.askForClosureReason().then((reason) => {
-        closureReasonControl?.setValue(reason);
+        if (reason.trim()) {
+          closureReasonControl?.setValue(reason);
+        } else {
+          alert("Closure reason is required! Reverting status to Open.");
+          formGroup.get('status').setValue(OpportunityStatus.Open);
+        }
       });
-      if(!closureReasonControl.value)
-      {
-        formGroup.get('status').setValue("Open");
-      }
     }
     if (newStatus !== OpportunityStatus.Open ) {
       // Set closed date to today if status is not Open
@@ -248,6 +281,8 @@ console.log("is readable: ",this.isRowEditable);
       substageControl?.setValue(''); // Clear substage if no options
     }
   }
+
+  
 
   saveOpportunity(opportunityId: string) {
 

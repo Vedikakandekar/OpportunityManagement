@@ -7,36 +7,51 @@
   background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
   color: white;
   padding: 2rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+
 }
 
 .dashboard-header h1 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: 600;
 }
 
 .dashboard-header p {
   margin: 0.5rem 0 0;
+  font-size: 1.1rem;
   opacity: 0.9;
 }
 
 .section-header {
-  border-bottom: 2px solid #e9ecef;
-  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-header h2 {
+  color: #2c3e50;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2c3e50;
   margin: 0;
 }
 
 .charts-container {
-  background: transparent;
-  padding: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chart-container:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive adjustments */
@@ -46,24 +61,48 @@
   }
 
   .dashboard-header h1 {
-    font-size: 1.75rem;
+    font-size: 2rem;
+  }
+
+  .dashboard-header p {
+    font-size: 1rem;
   }
 
   .section-header h2 {
     font-size: 1.25rem;
   }
 
-  .container-fluid {
-    padding: 1rem !important;
-  }
-}
-
-@media (max-width: 576px) {
-  .dashboard-header {
+  .chart-container {
     padding: 1rem;
   }
-
-  .dashboard-header h1 {
-    font-size: 1.5rem;
-  }
 }
+
+/* Tooltip styles */
+.tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* Chart-specific styles */
+.arc, .polar-area, .bar {
+  transition: opacity 0.3s ease;
+}
+
+.arc:hover, .polar-area:hover, .bar:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.label {
+  pointer-events: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+

@@ -26,7 +26,7 @@ export class KeyOpportunitiesComponent implements OnInit, OnChanges {
       this.highPriorityOpportunities = [...this.opportunities]
         .sort((a, b) => {
           // Sort by confidence (descending) and then by value (descending)
-          const confidenceOrder = { 'GuaranteedWin': 4, 'VeryPromising': 3, 'PotentialLead': 2, 'LongShot': 1, 'Unlikely': 0 };
+          const confidenceOrder = { 'Guaranteed Win': 4, 'Very Promising': 3, 'Potential Lead': 2, 'LongShot': 1, 'Unlikely': 0 };
           const confDiff = confidenceOrder[b.confidence] - confidenceOrder[a.confidence];
           if (confDiff !== 0) return confDiff;
           return parseFloat(b.value) - parseFloat(a.value);
@@ -36,9 +36,9 @@ export class KeyOpportunitiesComponent implements OnInit, OnChanges {
 
   getConfidenceColor(confidence: string): string {
     const colors = {
-      'GuaranteedWin': '#2ecc71',    // Professional green
-      'VeryPromising': '#3498db',    // Classic blue
-      'PotentialLead': '#f1c40f',    // Warm yellow
+      'Guaranteed Win': '#2ecc71',    // Professional green
+      'Very Promising': '#3498db',    // Classic blue
+      'Potential Lead': '#f1c40f',    // Warm yellow
       'LongShot': '#e67e22',         // Orange
       'Unlikely': '#e74c3c'          // Red
     };
@@ -53,7 +53,7 @@ export class KeyOpportunitiesComponent implements OnInit, OnChanges {
       'Proposal': '#f39c12',         // Gold
       'Negotiation': '#16a085',      // Teal
       'Closed': '#7f8c8d',           // Gray
-      'PostSales': '#8e44ad'         // Deep purple
+      'Post Sales': '#8e44ad'         // Deep purple
     };
     return colors[stage] || '#95a5a6';
   }

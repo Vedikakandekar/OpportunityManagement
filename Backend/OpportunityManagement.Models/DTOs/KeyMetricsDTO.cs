@@ -24,6 +24,7 @@ namespace OpportunityManagement.Models.DTOs
     }
 public class WinRateStatistics
 {
+        public double totalWinRate { get; set; }
     public double CurrentWinRate { get; set; }
     public double LastMonthWinRate { get; set; }
     public double PercentageDifference { get; set; }

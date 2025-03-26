@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="card-body p-0">
-    <h4 class="mb-2 text-truncate">{{ formatValue(value) }}{{ unit }}</h4>
+    <h4 class="mb-2 text-truncate">{{ formatValue(value) }} <span *ngIf="showPercentage">{{ unit }}</span></h4>
     <p class="mb-0 text-truncate">{{ trend }}</p>
   </div>
 </div>

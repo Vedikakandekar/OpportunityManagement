@@ -7,14 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpportunityManagement.Models
 {
-    public enum OpportunityStatus
-    {
-        Open = 1,
-        ClosedWon = 2,
-        ClosedLost = 3,
-        Dropped = 4,
-        OnHold = 5
-    }
+
 
     public class OpportunityStatusModel
     {

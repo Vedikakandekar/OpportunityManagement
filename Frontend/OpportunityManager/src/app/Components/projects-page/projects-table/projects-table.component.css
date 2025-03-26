@@ -1,4 +1,20 @@
 /* Table Container Styles */
+/* Container Styles */
+.container {
+  flex-grow: 1; /* Makes child take all available space */
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  min-height: calc(100vh - 2rem); 
+}
+.container.custom-container {
+  flex-grow: 1;
+  width: 100vw; /* Ensure full width */
+  max-width: 95vw;
+}
+
 .table-responsive {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -9,7 +25,7 @@
 }
 
 .project-table {
-  min-width: 1200px; /* Ensures minimum width for all columns */
+  min-width: 100vh; /* Ensures minimum width for all columns */
 }
 
 /* Sticky Columns */
@@ -146,7 +162,10 @@
 .container h4 {
   color: #2c3e50;
   font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
 }
+
 
 .text-muted {
   color: #6c757d !important;

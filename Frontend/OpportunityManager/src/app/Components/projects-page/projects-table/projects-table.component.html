@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container custom-container">
   <!-- Header Section -->
   <div class="row g-4 mb-4">
     <div class="col-md-6">
@@ -84,11 +84,11 @@
           <td class="sticky-end">
             <div class="d-flex gap-1 justify-content-center">
               <button (click)="saveProject(project.projectId)" 
-                      class="btn btn-outline-dark btn-sm" 
+                      class="btn btn-link btn-sm" 
                       data-bs-toggle="tooltip" 
                       data-bs-placement="top" 
                       title="Save">
-                <i class="bi bi-floppy-fill"></i>
+                <i class="bi bi-floppy"></i>
               </button>
               <app-add-resources [projectId]="project.projectId"></app-add-resources>
             </div>

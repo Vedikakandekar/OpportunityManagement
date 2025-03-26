@@ -37,6 +37,8 @@
             <input 
               type="text" 
               formControlName="searchTerm" 
+              [(ngModel)]="searchTerm"
+              (ngModelChange)="onSearchTermChange($event)"
               (keyup.enter)="applyFilters()" 
               class="form-control" 
               placeholder="Search..."
@@ -44,7 +46,7 @@
 
             <div class="mb-3">
               <label class="form-label">Sort By:</label>
-              <select formControlName="sortBy" class="form-select">
+              <select formControlName="sortBy" [(ngModel)]="sortBy" (ngModelChange)="onSortByChange($event)" class="form-select">
                 <option value="name">Name</option>
                 <option value="dateAdded">Date Added</option>
                 <option value="age">Age</option>
@@ -90,7 +92,7 @@
       </div>
 
       <div class="modal-footer d-flex justify-content-between">
-        <button class="btn btn-primary" (click)="applyFilters()" data-bs-dismiss="modal">Apply & Search</button>
+        <button class="btn btn-primary" (click)="applyFilters()" data-bs-dismiss="modal"  [disabled]="!hasFilters" [ngClass]="{'custom-disabled':!hasFilters}">Apply & Search</button>
         <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>

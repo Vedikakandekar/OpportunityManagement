@@ -2,3 +2,83 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Global disabled button styling */
+button.custom-disabled,
+button.custom-disabled:hover,
+button.custom-disabled:focus,
+button.custom-disabled:active {
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+    background-color: #cccccc !important;
+    border-color: #999999 !important;
+    color: #666666 !important;
+    pointer-events: auto !important;
+}
+
+/* Global Icon Styling */
+.bi, .fas, .fa {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.2s ease;
+    color: #2c3e50;
+}
+
+/* Icon Button Styling */
+button.btn-icon {
+    color: #2c3e50;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+/* Icon Button Hover Effect */
+button.btn-icon:hover:not(:disabled) {
+    color: #4a90e2;
+    transform: scale(1.1);
+}
+
+button.btn-icon:hover:not(:disabled) > .bi,
+button.btn-icon:hover:not(:disabled) > .fas,
+button.btn-icon:hover:not(:disabled) > .fa {
+    color: #4a90e2;
+}
+
+/* Disabled state */
+button.btn-icon:disabled {
+    color: #95a5a6;
+    cursor: not-allowed;
+}
+
+button.btn-icon:disabled > .bi,
+button.btn-icon:disabled > .fas,
+button.btn-icon:disabled > .fa {
+    color: #95a5a6;
+}
+
+/* Icon Button Focus Style */
+button.btn-icon:focus {
+    outline: none;
+    color: #2c3e50;
+}
+
+/* Maintain icon spacing in buttons with text */
+button:not(.btn-icon) > .bi,
+button:not(.btn-icon) > .fas,
+button:not(.btn-icon) > .fa {
+    margin-right: 0.5rem;
+}
+
+/* Focus state for disabled buttons */
+.custom-disabled:focus {
+    box-shadow: none !important;
+    outline: none !important;
+    cursor: not-allowed !important;
+}
